@@ -6,10 +6,12 @@ from appium.webdriver import WebElement
 from selenium.common import NoSuchElementException, InvalidElementStateException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from page import shell_device, inside_view, common_utils, inside_album
+from page import common_utils, device
+from page.inside import view
+from page.inside.view_jump_others import album
 
 
-class TestInsideView:
+class TestView:
 
     @allure.epic("inside")
     @allure.feature("view")
@@ -19,26 +21,26 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 点击调用测温工具栏图标
-        inside_view.click_call_measure_temp_tool_icon(self.wait)
+        view.click_call_measure_temp_tool_icon(self.wait)
 
         # 判断各测温工具是否展示
         try:
-            inside_view.get_center_temp_icon(self.wait)
-            inside_view.get_max_temp_icon(self.wait)
-            inside_view.get_min_temp_icon(self.wait)
-            inside_view.get_point_temp_icon(self.wait)
-            inside_view.get_line_temp_icon(self.wait)
-            inside_view.get_rectangle_temp_icon(self.wait)
-            inside_view.get_del_temp_icon(self.wait)
+            view.get_center_temp_icon(self.wait)
+            view.get_max_temp_icon(self.wait)
+            view.get_min_temp_icon(self.wait)
+            view.get_point_temp_icon(self.wait)
+            view.get_line_temp_icon(self.wait)
+            view.get_rectangle_temp_icon(self.wait)
+            view.get_del_temp_icon(self.wait)
         except:
             assert False, "调用测温工具栏失败"
 
@@ -50,20 +52,20 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 点击调用等温尺
-        inside_view.click_call_temp_ruler_icon(self.wait)
+        view.click_call_temp_ruler_icon(self.wait)
 
         # 判断等温尺是否调用成功
         try:
-            inside_view.get_temp_ruler_bar(self.wait)
+            view.get_temp_ruler_bar(self.wait)
         except:
             assert False, "等温尺调用失败"
 
@@ -75,23 +77,23 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 点击调用图像工具栏图标
-        inside_view.click_call_img_set_icon(self.wait)
+        view.click_call_img_set_icon(self.wait)
 
         # 判断各图像工具是否展示
         try:
-            inside_view.get_brightness_icon(self.wait)
-            inside_view.get_contrast_icon(self.wait)
-            inside_view.get_xuanzhuan_icon(self.wait)
-            inside_view.get_jingxiang_icon(self.wait)
+            view.get_brightness_icon(self.wait)
+            view.get_contrast_icon(self.wait)
+            view.get_xuanzhuan_icon(self.wait)
+            view.get_jingxiang_icon(self.wait)
         except:
             assert False, "调用图像工具栏失败"
 
@@ -103,20 +105,20 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 展示色板栏
-        inside_view.display_palette_row(self.wait)
+        view.display_palette_row(self.wait)
 
         # 判断色板栏是否展示成功
         try:
-            inside_view.get_hongtou_palette(self.wait)
+            view.get_hongtou_palette(self.wait)
         except:
             assert False, "调用色板栏失败"
 
@@ -129,25 +131,25 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 进入相册
-        inside_view.enter_album(self.wait)
+        view.enter_album(self.wait)
 
         print("--------------------------------------【拍摄前】---------------------------------------")
 
         # 找到相册里拍摄前第一个文件，如果存在，获取标题；如果不存在，设置标题为空
-        latest_file: WebElement | None = inside_album.find_latest_file(self.wait, self.driver)
+        latest_file: WebElement | None = album.find_latest_file(self.wait, self.driver)
         if latest_file:
             # 进入第一个文件详情
             latest_file.click()
-            latest_file_title: str = inside_album.find_file_title(self.wait)
+            latest_file_title: str = album.find_file_title(self.wait)
             # 返回相册界面
             common_utils.back_last_page(self.wait)
         else:
@@ -157,21 +159,21 @@ class TestInsideView:
         common_utils.back_last_page(self.wait)
 
         # 拍摄n张照片
-        inside_view.take_photo(self.wait, n)
+        view.take_photo(self.wait, n)
 
         print("---------------------------------------【拍摄后】--------------------------------------")
 
         # 进入相册界面
-        inside_view.enter_album(self.wait)
+        view.enter_album(self.wait)
 
         # 如果拍摄前至少存在一个文件，则找到拍摄后相册里前n+1文件; 否则找到前n个文件
         if latest_file_title:
-            after_files_titles: list[str] = inside_album.find_files_titles(self.wait, self.driver, n + 1)
+            after_files_titles: list[str] = album.find_files_titles(self.wait, self.driver, n + 1)
             print("拍摄后的相册里的所有文件标题：", after_files_titles)
             expr: bool = after_files_titles[-1] == latest_file_title and len(set(after_files_titles)) == len(after_files_titles) == n + 1
             assert expr, '照片拍摄存在失败'
         else:
-            after_files_titles: list[str] = inside_album.find_files_titles(self.wait, self.driver, n)
+            after_files_titles: list[str] = album.find_files_titles(self.wait, self.driver, n)
             print("拍摄后的相册里的所有文件标题：", after_files_titles)
             expr: bool = len(set(after_files_titles)) == len(after_files_titles) == n
             assert expr, '照片拍摄存在失败'
@@ -185,24 +187,24 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         #等取景器加载完毕
         time.sleep(10)
 
         # 进入相册
-        inside_view.enter_album(self.wait)
+        view.enter_album(self.wait)
 
         print("-------------------------------------------------【拍摄前】-------------------------------------------------")
         # 找到相册里拍摄前第一个文件，如果存在，获取标题；如果不存在，设置标题为空
-        latest_file: WebElement | None = inside_album.find_latest_file(self.wait, self.driver)
+        latest_file: WebElement | None = album.find_latest_file(self.wait, self.driver)
         if latest_file:
             # 进入文件详情
             latest_file.click()
-            latest_file_title: str = inside_album.find_file_title(self.wait)
+            latest_file_title: str = album.find_file_title(self.wait)
             # 返回相册界面
             common_utils.back_last_page(self.wait)
         else:
@@ -212,7 +214,7 @@ class TestInsideView:
         common_utils.back_last_page(self.wait)
 
         # 拍摄n段视频，每段视频t秒
-        inside_view.take_video(self.wait, n, t)
+        view.take_video(self.wait, n, t)
 
         print("-------------------------------------------------------【拍摄后】--------------------------------------------------------")
 
@@ -220,16 +222,16 @@ class TestInsideView:
         time.sleep(3)
 
         # 进入相册界面
-        inside_view.enter_album(self.wait)
+        view.enter_album(self.wait)
 
         # 如果拍摄前至少存在一个文件，则找到拍摄后相册里前n+1文件; 否则找到前n个文件
         if latest_file_title:
-            after_files_titles: list[str] = inside_album.find_files_titles(self.wait, self.driver, n + 1)
+            after_files_titles: list[str] = album.find_files_titles(self.wait, self.driver, n + 1)
             print("拍摄后的相册里的所有文件标题：", after_files_titles)
             expr: bool = after_files_titles[-1] == latest_file_title and len(set(after_files_titles)) == len(after_files_titles) == n + 1
             assert expr, '视频拍摄存在失败'
         else:
-            after_files_titles: list[str] = inside_album.find_files_titles(self.wait, self.driver, n)
+            after_files_titles: list[str] = album.find_files_titles(self.wait, self.driver, n)
             print("拍摄后的相册里的所有文件标题：", after_files_titles)
             expr: bool = len(set(after_files_titles)) == len(after_files_titles) == n
             assert expr, '视频拍摄存在失败'
@@ -242,16 +244,16 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 进入设置页面
-        inside_view.enter_setting(self.wait)
+        view.enter_setting(self.wait)
 
         # 判断是否进入设置成功
         try:
@@ -268,16 +270,16 @@ class TestInsideView:
         :return:
         """
         # 进入插件
-        shell_device.enter_camera(self.wait)
+        device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        inside_view.judge_alert(self.wait)
+        view.judge_alert(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
 
         # 进入相册
-        inside_view.enter_album(self.wait)
+        view.enter_album(self.wait)
 
         # 判断是否进入相册成功
         try:
