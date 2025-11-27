@@ -1,8 +1,7 @@
 import allure
 import time
-from page import device
-from page.inside import view
-from page.inside.view_jump_others import setting
+from page.outside import device
+from page.inside import view, setting
 
 
 class TestSetting:

@@ -1,6 +1,6 @@
 import allure
 from page.inside import view
-from page import device
+from page.outside import device
 
 
 class TestDevice:

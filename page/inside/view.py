@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
-from page import common_utils
+import common_utils
 
 TIEHUI: str = "com.inreii.neutralapp:id/ib_tiehui"
 CAIHONG: str = "com.inreii.neutralapp:id/ib_caihong"
@@ -352,7 +352,7 @@ def take_photo(wait, n: int) -> None:
         take_photo.click()
         time.sleep(1)
 
-def enter_album(wait) -> None:
+def enter_albums(wait) -> None:
     """
     进入相册
     :param wait:
@@ -372,10 +372,19 @@ def enter_setting(wait) -> None:
     :param wait:
     :return:
     """
-    # 找到设置元素
     setting: WebElement = wait.until \
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/setting_button")))
-
-    # 点击进入
     setting.click()
+
+def back_shell(wait) -> None:
+    """
+    返回外壳
+    :param wait:
+    :return:
+    """
+    back: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/sql_image_fh")))
+    back.click()
+

@@ -3,7 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
-from page import common_utils
+import common_utils
+from .photo import find_file_title
 
 def find_latest_file(wait, driver) -> WebElement | None:
     """
@@ -14,11 +15,11 @@ def find_latest_file(wait, driver) -> WebElement | None:
     while i < 3:
         try:
             # 找到最近一个文件
-            latest_file: WebElement = wait.until \
+            file: WebElement = wait.until \
                 (method=EC.presence_of_element_located \
                     (locator=(By.XPATH, '(//android.widget.ImageView[@resource-id="com.inreii.neutralapp:id/image"])[1]')))
-            print("第一个文件元素：", latest_file)
-            return latest_file
+            print("第一个文件元素：", file)
+            return file
         except (InvalidElementStateException, NoSuchElementException, TimeoutException):
             print(f"第 {i} 次没找到第一个文件")
             if i == 2:
@@ -27,17 +28,6 @@ def find_latest_file(wait, driver) -> WebElement | None:
             common_utils.swipe_y_1_4_to_y_3_4(driver)
             i += 1
     return None
-
-def find_file_title(wait) -> str:
-    """
-    获取文件标题
-    :return:
-    """
-    # 获取标题
-    file_title: WebElement = wait.until \
-        (method=EC.presence_of_element_located \
-            (locator=(By.ID, "com.inreii.neutralapp:id/title_content")))
-    return file_title.text
 
 def find_files_titles(wait, driver, n: int) -> list[str] | None:
     """
@@ -78,3 +68,4 @@ def find_files_titles(wait, driver, n: int) -> list[str] | None:
         return files_titles
 
     return None
+
