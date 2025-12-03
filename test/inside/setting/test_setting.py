@@ -1,17 +1,19 @@
-import allure
-import time
+import allure, time
 from page.outside import device
-from page.inside import view, setting
+from page.inside import view
+from page.inside.setting import setting
 
 
 class TestSetting:
+
     @allure.epic("inside")
     @allure.feature("setting")
-    def test_auto_shutter(self):
+    def test_click_auto_shutter(self):
         """
         测试开关自动快门
         :return:
         """
+
         # 进入插件
         device.enter_camera(self.wait)
 
@@ -38,7 +40,7 @@ class TestSetting:
 
     @allure.epic("inside")
     @allure.feature("setting")
-    def test_time_watermark(self):
+    def test_click_time_watermark(self):
         """
         测试开关时间水印
         :return:
@@ -69,7 +71,7 @@ class TestSetting:
 
     @allure.epic("inside")
     @allure.feature("setting")
-    def test_microphone(self):
+    def test_click_microphone(self):
         """
         测试开关麦克风
         :return:

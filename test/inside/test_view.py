@@ -1,13 +1,15 @@
 import time
 import pytest, allure
 from appium.webdriver import WebElement
-from selenium.common import NoSuchElementException, InvalidElementStateException, TimeoutException
+from selenium.common import NoSuchElementException, InvalidElementStateException, TimeoutException, \
+    StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import common_utils
 import page.inside.albums
 from page.outside import  startup, device, gallery
 from page.inside import view, albums
+from page.inside.view import MeasureTempTool, ImageSetting, TempRuler, Pallete
 
 
 class TestView:
@@ -29,18 +31,18 @@ class TestView:
         time.sleep(10)
 
         # 点击调用测温工具栏图标
-        view.click_call_measure_temp_tool_icon(self.wait)
+        MeasureTempTool.click_call_measure_temp_tool_icon(self.wait)
 
         # 判断各测温工具是否展示
         try:
-            view.get_center_temp_icon(self.wait)
-            view.get_max_temp_icon(self.wait)
-            view.get_min_temp_icon(self.wait)
-            view.get_point_temp_icon(self.wait)
-            view.get_line_temp_icon(self.wait)
-            view.get_rectangle_temp_icon(self.wait)
-            view.get_del_temp_icon(self.wait)
-        except:
+            MeasureTempTool.get_center_temp_icon(self.wait)
+            MeasureTempTool.get_max_temp_icon(self.wait)
+            MeasureTempTool.get_min_temp_icon(self.wait)
+            MeasureTempTool.get_point_temp_icon(self.wait)
+            MeasureTempTool.get_line_temp_icon(self.wait)
+            MeasureTempTool.get_rectangle_temp_icon(self.wait)
+            MeasureTempTool.get_del_temp_icon(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
             assert False, "调用测温工具栏失败"
 
     @allure.epic("inside")
@@ -60,16 +62,17 @@ class TestView:
         time.sleep(10)
 
         # 点击调用等温尺
-        view.click_call_temp_ruler_icon(self.wait)
+        TempRuler.click_call_temp_ruler_icon(self.wait)
 
         # 判断等温尺是否调用成功
         try:
-            view.get_temp_ruler_bar(self.wait)
-        except:
+            TempRuler.get_temp_ruler_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
             assert False, "等温尺调用失败"
 
     @allure.epic("inside")
     @allure.feature("view")
+    @allure.story("image_setting")
     def test_call_img_setting_row(self):
         """
         测试调出图像工具栏
@@ -85,16 +88,74 @@ class TestView:
         time.sleep(10)
 
         # 点击调用图像工具栏图标
-        view.click_call_img_set_icon(self.wait)
+        ImageSetting.click_call_img_set_icon(self.wait)
 
         # 判断各图像工具是否展示
         try:
-            view.get_brightness_icon(self.wait)
-            view.get_contrast_icon(self.wait)
-            view.get_xuanzhuan_icon(self.wait)
-            view.get_jingxiang_icon(self.wait)
-        except:
+            ImageSetting.get_brightness_icon(self.wait)
+            ImageSetting.get_contrast_icon(self.wait)
+            ImageSetting.get_xuanzhuan_icon(self.wait)
+            ImageSetting.get_jingxiang_icon(self.wait)
+        except(NoSuchElementException, InvalidElementStateException, StaleElementReferenceException, TimeoutException):
             assert False, "调用图像工具栏失败"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("image_setting")
+    def test_call_brightness_bar(self):
+        """
+        测试调出亮度栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.judge_alert(self.wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+
+        # 点击调用图像工具栏图标
+        ImageSetting.click_call_img_set_icon(self.wait)
+
+        # 点击调用亮度栏
+        ImageSetting.click_brightness_icon(self.wait)
+
+        # 判断亮度栏是否调出
+        try:
+            ImageSetting.get_brightness_contrast_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, "亮度栏调出失败"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("image_setting")
+    def test_call_contrast_bar(self):
+        """
+        测试调出对比度栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.judge_alert(self.wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+
+        # 点击调用图像工具栏图标
+        ImageSetting.click_call_img_set_icon(self.wait)
+
+        # 点击调用对比度栏
+        ImageSetting.click_contrast_icon(self.wait)
+
+        # 判断对比度栏是否调出
+        try:
+            ImageSetting.get_brightness_contrast_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, "对比度栏调出失败"
 
     @allure.epic("inside")
     @allure.feature("view")
@@ -113,11 +174,11 @@ class TestView:
         time.sleep(10)
 
         # 展示色板栏
-        view.display_palette_row(self.wait)
+        Pallete.display_palette_row(self.wait)
 
         # 判断色板栏是否展示成功
         try:
-            view.get_hongtou_palette(self.wait)
+            Pallete.get_hongtou_palette(self.wait)
         except:
             assert False, "调用色板栏失败"
 

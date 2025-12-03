@@ -56,9 +56,7 @@ def get_auto_shutter_status(wait) -> bool:
     auto_shutter: WebElement = wait.until \
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/three_img1_switch")))
-    if auto_shutter.get_attribute("checked") == "true":
-        return True
-    return False
+    return auto_shutter.get_attribute("checked") == "true"
 
 def click_auto_shutter(wait) -> None:
     """
@@ -80,9 +78,7 @@ def get_time_watermark_status(wait) -> bool:
     time_watermark: WebElement = wait.until \
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/three_img3_switch")))
-    if time_watermark.get_attribute("checked") == "true":
-        return True
-    return False
+    return time_watermark.get_attribute("checked") == "true"
 
 def click_time_watermark(wait) -> None:
     """
@@ -104,9 +100,7 @@ def get_microphone_status(wait) -> bool:
     microphone: WebElement = wait.until \
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/three_img4_switch")))
-    if microphone.get_attribute("checked") == "true":
-        return True
-    return False
+    return microphone.get_attribute("checked") == "true"
 
 def click_microphone(wait) -> None:
     """
