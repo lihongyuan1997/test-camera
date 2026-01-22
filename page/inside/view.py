@@ -3,116 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
-import common_utils
-
-class Pallete:
-
-    TIEHUI: str = "com.inreii.neutralapp:id/ib_tiehui"
-    CAIHONG: str = "com.inreii.neutralapp:id/ib_caihong"
-    GAOCAIHONG: str = "com.inreii.neutralapp:id/ib_gaocaihong"
-    TIEHONG: str = "com.inreii.neutralapp:id/ib_tiehong"
-    HONGTOU: str = "com.inreii.neutralapp:id/ib_hongtou"
-    HEIRE: str = "com.inreii.neutralapp:id/ib_heire"
-    BAIRE: str = "com.inreii.neutralapp:id/baire_mode_button"
-    MOHUI: str = "com.inreii.neutralapp:id/rl_mohui1"
-    BINGLENG: str = "com.inreii.neutralapp:id/rl_bingleng1"
-
-    @staticmethod
-    def display_palette_row(wait) -> None:
-        """
-        展示色板栏
-        :param wait:
-        :return:
-        """
-        # 找到色板入口元素
-        palette: WebElement = wait.until \
-            (method=EC.presence_of_element_located \
-                (locator=(By.ID, "com.inreii.neutralapp:id/sql_image_sb")))
-        # 展示色板
-        palette.click()
-
-    @staticmethod
-    def get_hongtou_palette(wait) -> WebElement:
-        """
-        获取红头色板元素
-        :param wait:
-        :return:
-        """
-        palette_hongtou: WebElement = wait.until \
-            (method=EC.presence_of_element_located \
-                (locator=(By.ID, Pallete.HONGTOU)))
-        return palette_hongtou
-
-    @staticmethod
-    def swipe_palette_row_to_left(wait, driver, palette_hongtou: WebElement) -> None:
-        """
-        向左滑动色板栏
-        :param palette_hongtou: 红头色板元素
-        :param wait:
-        :param driver:
-        :return:
-        """
-
-        # 获取红头色板的坐标和尺寸
-        x, y, width, height = common_utils.get_element_coordinate_size(palette_hongtou)
-
-        # 获取屏幕指定位置坐标
-        specified_position: dict[str: int] = common_utils.get_specified_position(driver)
-
-        # 向左滑动色板栏
-        driver.swipe(specified_position['x_3_4'], y + 0.5 * height, 0, y + 0.5 * height)
-
-    @staticmethod
-    def swipe_palette_row_to_right(wait, driver, palette_hongtou: WebElement) -> None:
-        """
-        向右滑动色板栏
-        :param palette_hongtou: 红头色板元素
-        :param wait:
-        :param driver:
-        :return:
-        """
-
-        # 获取红头色板的坐标和尺寸
-        x, y, width, height = common_utils.get_element_coordinate_size(palette_hongtou)
-
-        # 获取屏幕指定位置坐标
-        specified_position: dict[str: int] = common_utils.get_specified_position(driver)
-
-        # 向右滑动色板栏
-        driver.swipe(specified_position['x_1_4'], y + 0.5 * height, specified_position['x'], y + 0.5 * height)
-
-    @staticmethod
-    def choose_palette(wait, driver, palette_name: str) -> None:
-        """
-        选择色板
-        :param driver:
-        :param palette_name:
-        :param wait:
-        :return:
-        """
-        i = 0
-        while i < 2:
-            try:
-                # 找到具体色板元素
-                palette_ele: WebElement = wait.until \
-                    (method=EC.presence_of_element_located \
-                        (locator=(By.ID, palette_name)))
-                # 选择色板
-                palette_ele.click()
-            # 第一次没找到的处理
-            except (NoSuchElementException, TimeoutException, InvalidElementStateException):
-                # 找到红头色板
-                palette_hongtou: WebElement = Pallete.get_hongtou_palette(wait)
-
-                # 如果是冰冷、墨灰、白热、黑热色板，没找到的话向右滑
-                if palette_name in (Pallete.BINGLENG, Pallete.MOHUI, Pallete.BAIRE, Pallete.HEIRE):
-                    Pallete.swipe_palette_row_to_right(wait, driver, palette_hongtou)
-
-                # 如果是铁红、高彩虹、彩虹、铁灰色板，没找到的话向左滑
-                if palette_name in (Pallete.TIEHONG, Pallete.GAOCAIHONG, Pallete.CAIHONG, Pallete.TIEHUI):
-                    Pallete.swipe_palette_row_to_left(wait, driver, palette_hongtou)
-
-                i += 1
+import utility
 
 class MeasureTempTool:
 
@@ -141,6 +32,16 @@ class MeasureTempTool:
         return center_temp_icon
 
     @staticmethod
+    def click_center_temp_icon(wait) -> None:
+        """
+        点击中心点测温图标
+        :param wait:
+        :return:
+        """
+        center_temp_icon: WebElement = MeasureTempTool.get_center_temp_icon(wait)
+        center_temp_icon.click()
+
+    @staticmethod
     def get_max_temp_icon(wait) -> WebElement:
         """
         获取测量最高温图标
@@ -151,6 +52,16 @@ class MeasureTempTool:
             (method=EC.presence_of_element_located \
                 (locator=(By.ID, "com.inreii.neutralapp:id/iv_max_mini")))
         return max_temp_icon
+
+    @staticmethod
+    def click_max_temp_icon(wait) -> None:
+        """
+        点击最高温图标
+        :param wait:
+        :return:
+        """
+        max_temp_icon: WebElement = MeasureTempTool.get_max_temp_icon(wait)
+        max_temp_icon.click()
 
     @staticmethod
     def get_min_temp_icon(wait) -> WebElement:
@@ -165,6 +76,16 @@ class MeasureTempTool:
         return min_temp_icon
 
     @staticmethod
+    def click_min_temp_icon(wait) -> None:
+        """
+        点击最低温图标
+        :param wait:
+        :return:
+        """
+        min_temp_icon: WebElement = MeasureTempTool.get_min_temp_icon(wait)
+        min_temp_icon.click()
+
+    @staticmethod
     def get_point_temp_icon(wait) -> WebElement:
         """
         获取测量某一点温度图标
@@ -175,6 +96,16 @@ class MeasureTempTool:
             (method=EC.presence_of_element_located \
                 (locator=(By.ID, "com.inreii.neutralapp:id/ll_point_mode")))
         return point_temp_icon
+
+    @staticmethod
+    def click_point_temp_icon(wait) -> None:
+        """
+        点击点测温图标
+        :param wait:
+        :return:
+        """
+        point_temp_icon: WebElement = MeasureTempTool.get_point_temp_icon(wait)
+        point_temp_icon.click()
 
     @staticmethod
     def get_line_temp_icon(wait) -> WebElement:
@@ -189,6 +120,16 @@ class MeasureTempTool:
         return line_temp_icon
 
     @staticmethod
+    def click_line_temp_icon(wait) -> None:
+        """
+        点击线测温图标
+        :param wait:
+        :return:
+        """
+        line_temp_icon: WebElement = MeasureTempTool.get_line_temp_icon(wait)
+        line_temp_icon.click()
+
+    @staticmethod
     def get_rectangle_temp_icon(wait) -> WebElement:
         """
         获取测量矩形框温度图标
@@ -199,6 +140,16 @@ class MeasureTempTool:
             (method=EC.presence_of_element_located \
                 (locator=(By.ID, "com.inreii.neutralapp:id/rectangle_mode_button")))
         return rectangle_temp_icon
+
+    @staticmethod
+    def click_rectangle_temp_icon(wait) -> None:
+        """
+        点击框测温图标
+        :param wait:
+        :return:
+        """
+        rectangle_temp_icon: WebElement = MeasureTempTool.get_rectangle_temp_icon(wait)
+        rectangle_temp_icon.click()
 
     @staticmethod
     def get_del_temp_icon(wait) -> WebElement:
@@ -212,10 +163,20 @@ class MeasureTempTool:
                 (locator=(By.ID, "com.inreii.neutralapp:id/iv_delete_button")))
         return del_temp_icon
 
+    @staticmethod
+    def click_del_temp_icon(wait) -> None:
+        """
+        点击清除点线框图标
+        :param wait:
+        :return:
+        """
+        del_temp_icon: WebElement = MeasureTempTool.get_del_temp_icon(wait)
+        del_temp_icon.click()
+
 class TempRuler:
 
     @staticmethod
-    def click_call_temp_ruler_icon(wait) -> None:
+    def call_temp_ruler(wait) -> None:
         """
         点击调用等温尺图标
         :param wait:
@@ -336,10 +297,93 @@ class ImageSetting:
                 (locator=(By.ID, "com.inreii.neutralapp:id/jingxiang_button")))
         return jingxiang_icon
 
+class Pallete:
 
-def judge_alert(wait) -> None:
+    PALLETE: dict[str:str] = {"bingleng": "com.inreii.neutralapp:id/rl_bingleng1", # 冰冷
+                                 "hongtou":"com.inreii.neutralapp:id/ib_hongtou" , # 红头
+                                 "tiehui":"com.inreii.neutralapp:id/ib_tiehui", # 铁灰
+                                 "mohui":"com.inreii.neutralapp:id/rl_mohui1", # 墨灰
+                                 "rongyan":"com.inreii.neutralapp:id/ib_rongyan", # 熔岩
+                                 "gaocaihong":"com.inreii.neutralapp:id/ib_gaocaihong", # 高彩虹
+                                 "caihong":"com.inreii.neutralapp:id/ib_caihong", # 彩虹
+                                 "heire":"com.inreii.neutralapp:id/ib_heire", # 黑热
+                                 "baire":"com.inreii.neutralapp:id/baire_mode_button", # 白热
+                                 "tiehong":"com.inreii.neutralapp:id/ib_tiehong" # 铁红
+                              }
+
+    @staticmethod
+    def display_palette_row(wait) -> None:
+        """
+        展示色板栏
+        :param wait:
+        :return:
+        """
+        # 找到色板入口元素
+        palette: WebElement = wait.until \
+            (method=EC.presence_of_element_located \
+                (locator=(By.ID, "com.inreii.neutralapp:id/sql_image_sb")))
+        # 展示色板
+        palette.click()
+
+    @staticmethod
+    def swipe_pallete_row_up(driver, view_ele: WebElement):
+        """
+        向上滑动色板栏
+        :param driver:
+        :param view:
+        :return:
+        """
+        # 确定色板栏横坐标（屏幕是横过来的）
+        axis_x = view_ele.location['x'] + view_ele.size['width'] - 100
+
+        # 向上滑动
+        driver.swipe(axis_x, view_ele.size['height'] * 0.75, axis_x, view_ele.size['height'] * 0.25)
+
+    @staticmethod
+    def swipe_pallete_row_down(driver, view_ele: WebElement):
+        """
+        向下滑动色板栏
+        :param driver:
+        :param view:
+        :return:
+        """
+        # 确定色板栏横坐标（屏幕是横过来的）
+        axis_x = view_ele.location['x'] + view_ele.size['width'] - 100
+
+        # 向下滑动
+        driver.swipe(axis_x, view_ele.size['height'] * 0.25, axis_x, view_ele.size['height'] * 0.75)
+
+    @staticmethod
+    def choose_palette(wait, driver, view: WebElement, palette: str) -> None:
+        """
+        选择色板
+        :param driver:
+        :param palette_name:
+        :param wait:
+        :return:
+        """
+
+        left_count = 0
+        while True:
+            try:
+                # 找到具体色板元素
+                palette_ele: WebElement = wait.until \
+                    (method=EC.presence_of_element_located \
+                        (locator=(By.ID, Pallete.PALLETE[palette])))
+                # 选择色板
+                palette_ele.click()
+                print(f"已选择{palette}色板")
+                break
+            # 没找到向下滑
+            except (NoSuchElementException, TimeoutException, InvalidElementStateException):
+                Pallete.swipe_pallete_row_down(driver,view)
+                left_count += 1
+                if left_count == 3:
+                    assert False, f"找不到{palette}色板"
+
+def admit_access(wait) -> None:
     """
-    判断是否有弹框提示授权APP访问camera+，点击允许
+    如果有弹框提示授权APP访问camera+，点击允许
     :param wait:
     :return:
     """
@@ -354,30 +398,17 @@ def judge_alert(wait) -> None:
     except (NoSuchElementException, InvalidElementStateException, TimeoutException):
         pass
 
-def find_view_element(wait) -> None:
+def get_view_element(wait) -> WebElement:
     """
-    找到取景器元素
+    找到并返回取景器元素
     :param wait:
     :return:
     """
-    # flag: int = 0
-    # while flag < 4:
-    #     try:
-    #         view: WebElement = wait.until \
-    #             (method=EC.presence_of_element_located \
-    #                 (locator=(By.ID, "com.inreii.neutralapp:id/yulan")))
-    #         break
-    #     except (NoSuchElementException, TimeoutException, InvalidElementStateException):
-    #         time.sleep(5)
-    #         flag += 1
-    #
-    # if flag == 4:
-    #     assert False, "找不到取景器元素"
-
     try:
         view: WebElement = wait.until \
             (method=EC.presence_of_element_located \
                 (locator=(By.ID, "com.inreii.neutralapp:id/yulan")))
+        return view
     except (NoSuchElementException, TimeoutException, InvalidElementStateException):
         assert False, "找不到取景器元素"
 

@@ -4,15 +4,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 import pytest
 
 @pytest.fixture(autouse=True)
-def nocpix_driver(request):
+def camera_plus_driver(request):
     """
     启动webdriver，设置元素加载前等待时间
     :return:
     """
     appium_server_url = 'http://localhost:4723'
 
-    # 设置连接NOCPIX参数
-    nocpix_capabilities = {
+    # 设置连接camera_plus参数
+    camera_plus_capabilities = {
         "platformName": "Android",
         "appium:automationName": "uiautomator2",
         "appium:deviceName": "Android",
@@ -23,13 +23,12 @@ def nocpix_driver(request):
     }
 
     options: AppiumOptions = AppiumOptions()
-    options.load_capabilities(nocpix_capabilities)
+    options.load_capabilities(camera_plus_capabilities)
 
-    # 设置webdriver,打开nocpix界面
-    driver: Remote = Remote(command_executor=appium_server_url, options=options)
-    wait: WebDriverWait = WebDriverWait(driver=driver, timeout=10)
-
-    request.cls.driver , request.cls.wait = driver , wait
+    # 设置webdriver,打开camera_plus界面
+    driver = Remote(command_executor=appium_server_url, options=options)
+    request.cls.driver = driver
+    request.cls.wait = WebDriverWait(driver=driver, timeout=10)
 
     yield
 

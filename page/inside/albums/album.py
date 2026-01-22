@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
-import common_utils
+import utility
 from .photo import find_file_title
 
 def find_latest_file(wait, driver) -> WebElement | None:
@@ -25,7 +25,7 @@ def find_latest_file(wait, driver) -> WebElement | None:
             if i == 2:
                 print("第一个文件不存在")
             # 没有找到的话向下滑动刷新
-            common_utils.swipe_y_1_4_to_y_3_4(driver)
+            utility.swipe_y_1_4_to_y_3_4(driver)
             i += 1
     return None
 
@@ -54,7 +54,7 @@ def find_files_titles(wait, driver, n: int) -> list[str] | None:
             files_titles.append(last_file_title)
 
             # 向左滑
-            common_utils.swipe_x_3_4_to_x_1_4(driver)
+            utility.swipe_x_3_4_to_x_1_4(driver)
 
             time.sleep(1)
 

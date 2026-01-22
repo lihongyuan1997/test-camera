@@ -18,7 +18,7 @@ class TestSetting:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
@@ -49,7 +49,7 @@ class TestSetting:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)
@@ -80,7 +80,7 @@ class TestSetting:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
         # 等取景器加载完毕
         time.sleep(10)

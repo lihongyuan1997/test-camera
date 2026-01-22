@@ -16,4 +16,4 @@ class TestDevice:
         device.enter_camera(self.wait)
 
         # 确认是否进入插件成功
-        view.find_view_element(self.wait)
+        view.get_view_element(self.wait)

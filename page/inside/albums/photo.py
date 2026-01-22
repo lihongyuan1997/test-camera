@@ -1,3 +1,4 @@
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +14,158 @@ def find_file_title(wait) -> str:
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/title_content")))
     return file_title.text
+
+def enter_analysis(wait) -> None:
+    """
+    进入离线分析
+    :param wait:
+    :return:
+    """
+    # 获取离线分析图标并点击
+    analysis: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/offlinetext")))
+    analysis.click()
+
+def get_pallete_icon(wait) -> WebElement:
+    """
+    获取色板栏图标
+    :param wait:
+    :return:
+    """
+    pallete: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mOneImg")))
+    return pallete
+
+def show_pallete(wait) -> None:
+    """
+    展示色板栏
+    :param wait:
+    :return:
+    """
+    pallete: WebElement = get_pallete_icon(wait)
+    pallete.click()
+
+def get_emissivity_icon(wait) -> WebElement:
+    """
+    获取发射率图标
+    :param wait:
+    :return:
+    """
+    emissivity: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mTwoImg")))
+    return emissivity
+
+def show_emissivity(wait) -> None:
+    """
+    展示发射率列表
+    :param wait:
+    :return:
+    """
+    emissivity: WebElement = get_emissivity_icon(wait)
+    emissivity.click()
+
+def get_point_icon(wait) -> WebElement:
+    """
+    获取点图标
+    :param wait:
+    :return:
+    """
+    point: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mThree")))
+    return point
+
+def choose_point(wait) -> None:
+    """
+    选择点标注
+    :param wait:
+    :return:
+    """
+    point: WebElement = get_point_icon(wait)
+    point.click()
+
+def get_line_icon(wait) -> WebElement:
+    """
+    获取线图标
+    :param wait:
+    :return:
+    """
+    line: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mFour")))
+    return line
+
+def choose_line(wait) -> None:
+    """
+    选择线标注
+    :param wait:
+    :return:
+    """
+    line: WebElement = get_line_icon(wait)
+    line.click()
+
+def get_rectangle_icon(wait) -> WebElement:
+    """
+    获取框图标
+    :param wait:
+    :return:
+    """
+    rectangle: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mFive")))
+    return rectangle
+
+def choose_rectangle(wait) -> None:
+    """
+    选择框标注
+    :param wait:
+    :return:
+    """
+    rectangle: WebElement = get_rectangle_icon(wait)
+    rectangle.click()
+
+def get_textbox_icon(wait) -> WebElement:
+    """
+    获取文本框图标
+    :param wait:
+    :return:
+    """
+    textbox: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mSevenImg")))
+    return textbox
+
+def choose_textbox(wait) -> None:
+    """
+    选择文本框标注
+    :param wait:
+    :return:
+    """
+    textbox: WebElement = get_textbox_icon(wait)
+    textbox.click()
+
+def get_clear_icon(wait) -> WebElement:
+    """
+    获取清除图标
+    :param wait:
+    :return:
+    """
+    clear: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/mEightImg")))
+    return clear
+
+def clear_all(wait) -> None:
+    """
+    清除所有标注
+    :param wait:
+    :return:
+    """
+    clear: WebElement = get_clear_icon(wait)
+    clear.click()
 
 def click_generate_report(wait) -> None:
     """
@@ -46,3 +199,25 @@ def cancel_generate_report(wait) -> None:
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/negtive")))
     cancel.click()
+
+def call_thermal_ruler(wait) -> None:
+    """
+    调用等温尺
+    :param wait:
+    :return:
+    """
+    call_ruler: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/isothermalscaleAll")))
+    call_ruler.click()
+
+def get_thermal_ruler(wait) -> WebElement:
+    """
+    获取等温尺
+    :param wait:
+    :return:
+    """
+    ruler: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/sb_vertical_4")))
+    return ruler

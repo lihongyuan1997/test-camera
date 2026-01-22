@@ -1,1 +1,1 @@
-from page.inside.albums.photo import find_file_title
+from page.inside.albums.photo import *

@@ -4,16 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7c5179c-6bdb-4e95-83ec-c5ca5773c83a" name="更改" comment="2025-11-27">
-      <change afterPath="$PROJECT_DIR$/page/inside/setting/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/page/inside/setting/temp_alarm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/inside/setting/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/inside/setting/test_temp_alarm.py" afterDir="false" />
+    <list default="true" id="e7c5179c-6bdb-4e95-83ec-c5ca5773c83a" name="更改" comment="2025-12-3">
+      <change afterPath="$PROJECT_DIR$/page/inside/setting/temp_unit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/inside/setting/test_temp_unit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/outside/gallery/test_outside_photo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/inside/setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/setting/setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/inside/albums/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/inside/albums/album.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/album.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/inside/albums/photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/photo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/inside/albums/report.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/inside/setting/temp_alarm.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/setting/temp_alarm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/test_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/setting/test_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/outside/device.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/outside/device.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/outside/gallery/album.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/outside/gallery/album.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/outside/gallery/photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/outside/gallery/photo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pytest.ini" beforeDir="false" afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/album/test_photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/album/test_inside_photo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/setting/test_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/setting/test_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/setting/test_temp_alarm.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/setting/test_temp_alarm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/inside/test_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/test_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/outside/test_device.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/outside/test_device.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,18 +41,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "lihongyuan1997"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;lihongyuan1997&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/lihongyuan1997/test-camera.git",
-    "accountId": "a9eaacd2-146b-4dde-9a79-bdceda25b0d4"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/lihongyuan1997/test-camera.git&quot;,
+    &quot;accountId&quot;: &quot;a9eaacd2-146b-4dde-9a79-bdceda25b0d4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -60,7 +71,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/Administrator/Desktop/test_camera+",
-    "settings.editor.selected.configurable": "vcs.Git"
+    "settings.editor.selected.configurable": "editor.preferences.appearance"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -111,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764232597813</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="2025-12-3">
+      <option name="closed" value="true" />
+      <created>1764750392950</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764750392950</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,6 +148,7 @@
     <MESSAGE value="2025-11-20" />
     <MESSAGE value="2025-11-21" />
     <MESSAGE value="2025-11-27" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025-11-27" />
+    <MESSAGE value="2025-12-3" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025-12-3" />
   </component>
 </project>

@@ -1,1 +1,1 @@
-from page.inside.albums.album import find_latest_file, find_files_titles
+from page.inside.albums.album import *

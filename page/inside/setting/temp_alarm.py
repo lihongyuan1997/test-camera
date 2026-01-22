@@ -67,3 +67,75 @@ def get_alarm_sound_status(wait) -> bool:
         (method=EC.presence_of_element_located \
             (locator=(By.ID, "com.inreii.neutralapp:id/switch_bjsy")))
     return alarm_sound.get_attribute("checked") == "true"
+
+def get_high_temp(wait) -> str:
+    """
+    获取高温阈值
+    :param wait:
+    :return:
+    """
+    high_temp: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/gwfz_value")))
+    return high_temp.text
+
+def input_high_temp(wait, temp: float) -> None:
+    """
+    输入高温阈值
+    :param wait:
+    :param temp:
+    :return:
+    """
+    # 找到高温阈值显示值并点击
+    high_temp: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/gwfz_value")))
+    high_temp.click()
+
+    # 找到高温阈值输入框并输入温度
+    high_temp_input: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/message")))
+    high_temp_input.send_keys(str(temp))
+
+    # 点击确定
+    sure: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/positive")))
+    sure.click()
+
+def get_low_temp(wait) -> str:
+    """
+    获取低温阈值
+    :param wait:
+    :return:
+    """
+    low_temp: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/dwfz_value")))
+    return low_temp.text
+
+def input_low_temp(wait, temp: float) -> None:
+    """
+    输入低温阈值
+    :param wait:
+    :param temp:
+    :return:
+    """
+    # 找到低温阈值显示值并点击
+    low_temp: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/dwfz_value")))
+    low_temp.click()
+
+    # 找到低温阈值输入框并输入温度
+    low_temp_input: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/message")))
+    low_temp_input.send_keys(str(temp))
+
+    # 点击确定
+    sure: WebElement = wait.until \
+        (method=EC.presence_of_element_located \
+            (locator=(By.ID, "com.inreii.neutralapp:id/positive")))
+    sure.click()

@@ -1,186 +1,40 @@
 import time
 import pytest, allure
+import pytest_check as check
 from appium.webdriver import WebElement
-from selenium.common import NoSuchElementException, InvalidElementStateException, TimeoutException, \
-    StaleElementReferenceException
+from selenium.common import NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import common_utils
-import page.inside.albums
+import utility
 from page.outside import  startup, device, gallery
 from page.inside import view, albums
 from page.inside.view import MeasureTempTool, ImageSetting, TempRuler, Pallete
 
-
 class TestView:
-
+    """
+    测试取景、拍照、录像、跳转到其他页面等功能
+    """
     @allure.epic("inside")
     @allure.feature("view")
-    def test_call_measure_temp_row(self):
+    def test_view_show(self):
         """
-        测试调出测温工具栏
-        :return:
+        测试取景器是否显示
+        :return: 
         """
         # 进入插件
         device.enter_camera(self.wait)
 
-        # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        # 如果弹框需要授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+        
 
-        # 点击调用测温工具栏图标
-        MeasureTempTool.click_call_measure_temp_tool_icon(self.wait)
 
-        # 判断各测温工具是否展示
-        try:
-            MeasureTempTool.get_center_temp_icon(self.wait)
-            MeasureTempTool.get_max_temp_icon(self.wait)
-            MeasureTempTool.get_min_temp_icon(self.wait)
-            MeasureTempTool.get_point_temp_icon(self.wait)
-            MeasureTempTool.get_line_temp_icon(self.wait)
-            MeasureTempTool.get_rectangle_temp_icon(self.wait)
-            MeasureTempTool.get_del_temp_icon(self.wait)
-        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
-            assert False, "调用测温工具栏失败"
 
-    @allure.epic("inside")
-    @allure.feature("view")
-    def test_call_temp_ruler_bar(self):
-        """
-        测试调用等温尺是否成功
-        :return:
-        """
-        # 进入插件
-        device.enter_camera(self.wait)
 
-        # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
-
-        # 点击调用等温尺
-        TempRuler.click_call_temp_ruler_icon(self.wait)
-
-        # 判断等温尺是否调用成功
-        try:
-            TempRuler.get_temp_ruler_bar(self.wait)
-        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
-            assert False, "等温尺调用失败"
-
-    @allure.epic("inside")
-    @allure.feature("view")
-    @allure.story("image_setting")
-    def test_call_img_setting_row(self):
-        """
-        测试调出图像工具栏
-        :return:
-        """
-        # 进入插件
-        device.enter_camera(self.wait)
-
-        # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
-
-        # 等取景器加载完毕
-        time.sleep(10)
-
-        # 点击调用图像工具栏图标
-        ImageSetting.click_call_img_set_icon(self.wait)
-
-        # 判断各图像工具是否展示
-        try:
-            ImageSetting.get_brightness_icon(self.wait)
-            ImageSetting.get_contrast_icon(self.wait)
-            ImageSetting.get_xuanzhuan_icon(self.wait)
-            ImageSetting.get_jingxiang_icon(self.wait)
-        except(NoSuchElementException, InvalidElementStateException, StaleElementReferenceException, TimeoutException):
-            assert False, "调用图像工具栏失败"
-
-    @allure.epic("inside")
-    @allure.feature("view")
-    @allure.story("image_setting")
-    def test_call_brightness_bar(self):
-        """
-        测试调出亮度栏
-        :return:
-        """
-        # 进入插件
-        device.enter_camera(self.wait)
-
-        # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
-
-        # 等取景器加载完毕
-        time.sleep(10)
-
-        # 点击调用图像工具栏图标
-        ImageSetting.click_call_img_set_icon(self.wait)
-
-        # 点击调用亮度栏
-        ImageSetting.click_brightness_icon(self.wait)
-
-        # 判断亮度栏是否调出
-        try:
-            ImageSetting.get_brightness_contrast_bar(self.wait)
-        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
-            assert False, "亮度栏调出失败"
-
-    @allure.epic("inside")
-    @allure.feature("view")
-    @allure.story("image_setting")
-    def test_call_contrast_bar(self):
-        """
-        测试调出对比度栏
-        :return:
-        """
-        # 进入插件
-        device.enter_camera(self.wait)
-
-        # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
-
-        # 等取景器加载完毕
-        time.sleep(10)
-
-        # 点击调用图像工具栏图标
-        ImageSetting.click_call_img_set_icon(self.wait)
-
-        # 点击调用对比度栏
-        ImageSetting.click_contrast_icon(self.wait)
-
-        # 判断对比度栏是否调出
-        try:
-            ImageSetting.get_brightness_contrast_bar(self.wait)
-        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
-            assert False, "对比度栏调出失败"
-
-    @allure.epic("inside")
-    @allure.feature("view")
-    def test_call_palette_row(self):
-        """
-        测试调出色板栏
-        :return:
-        """
-        # 进入插件
-        device.enter_camera(self.wait)
-
-        # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
-
-        # 等取景器加载完毕
-        time.sleep(10)
-
-        # 展示色板栏
-        Pallete.display_palette_row(self.wait)
-
-        # 判断色板栏是否展示成功
-        try:
-            Pallete.get_hongtou_palette(self.wait)
-        except:
-            assert False, "调用色板栏失败"
 
     @allure.epic("inside")
     @allure.feature("view")
@@ -194,10 +48,10 @@ class TestView:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
+        # 找到取景器元素
+        view.get_view_element(self.wait)
 
         # 进入内部相册
         view.enter_albums(self.wait)
@@ -212,12 +66,12 @@ class TestView:
             latest_file.click()
             latest_file_title: str = albums.photo.find_file_title(self.wait)
             # 返回相册界面
-            common_utils.back_last_page(self.wait)
+            utility.back_last_page(self.wait)
         else:
             latest_file_title: str = ''
 
         # 返回取景页面
-        common_utils.back_last_page(self.wait)
+        utility.back_last_page(self.wait)
 
         # 拍摄n张照片
         view.take_photo(self.wait, n)
@@ -252,10 +106,10 @@ class TestView:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
-        #等取景器加载完毕
-        time.sleep(10)
+        #找到取景器元素
+        view.get_view_element(self.wait)
 
         # 进入内部相册
         view.enter_albums(self.wait)
@@ -270,12 +124,12 @@ class TestView:
             latest_file.click()
             latest_file_title: str = albums.album.find_file_title(self.wait)
             # 返回相册界面
-            common_utils.back_last_page(self.wait)
+            utility.back_last_page(self.wait)
         else:
             latest_file_title: str = ''
 
         # 返回取景页面
-        common_utils.back_last_page(self.wait)
+        utility.back_last_page(self.wait)
 
         # 拍摄n段视频，每段视频t秒
         view.take_video(self.wait, n, t)
@@ -322,7 +176,7 @@ class TestView:
             latest_file.click()
             latest_file_title: str = gallery.photo.find_file_title(self.wait)
             # 返回相册界面
-            common_utils.back_last_page(self.wait)
+            utility.back_last_page(self.wait)
         else:
             latest_file_title: str = ''
 
@@ -333,10 +187,10 @@ class TestView:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
+        # 找到取景器元素
+        view.get_view_element(self.wait)
 
         # 拍摄n张照片
         view.take_photo(self.wait, n)
@@ -383,7 +237,7 @@ class TestView:
             latest_file.click()
             latest_file_title: str = gallery.photo.find_file_title(self.wait)
             # 返回相册界面
-            common_utils.back_last_page(self.wait)
+            utility.back_last_page(self.wait)
         else:
             latest_file_title: str = ''
 
@@ -394,10 +248,10 @@ class TestView:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
+        # 找到取景器元素
+        view.get_view_element(self.wait)
 
         # 拍摄n段视频
         view.take_video(self.wait, n, t)
@@ -434,10 +288,10 @@ class TestView:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
+        # 找到取景器元素
+        view.get_view_element(self.wait)
 
         # 进入设置页面
         view.enter_setting(self.wait)
@@ -460,10 +314,10 @@ class TestView:
         device.enter_camera(self.wait)
 
         # 如果弹框提示授权APP访问camera+，点击允许
-        view.judge_alert(self.wait)
+        view.admit_access(self.wait)
 
-        # 等取景器加载完毕
-        time.sleep(10)
+        # 找到取景器元素
+        view.get_view_element(self.wait)
 
         # 进入相册
         view.enter_albums(self.wait)
@@ -476,3 +330,485 @@ class TestView:
             assert album.text == "Albums", "相册页面名称错误，进入相册页面失败"
         except (NoSuchElementException, InvalidElementStateException, TimeoutException):
             assert False, "未找到相册页面名称元素，进入相册页面失败"
+
+class TestMeasureTemp:
+    """
+    测试测温工具功能
+    """
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("measure_temp")
+    def test_call_measure_temp_row(self):
+        """
+        测试调出测温工具栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+
+        # 点击调用测温工具栏图标
+        MeasureTempTool.click_call_measure_temp_tool_icon(self.wait)
+
+        # 判断各测温工具是否展示
+        try:
+            MeasureTempTool.get_center_temp_icon(self.wait)
+            MeasureTempTool.get_max_temp_icon(self.wait)
+            MeasureTempTool.get_min_temp_icon(self.wait)
+            MeasureTempTool.get_point_temp_icon(self.wait)
+            MeasureTempTool.get_line_temp_icon(self.wait)
+            MeasureTempTool.get_rectangle_temp_icon(self.wait)
+            MeasureTempTool.get_del_temp_icon(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, "调用测温工具栏失败"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("measure_temp")
+    def test_show_central_temp(self):
+        """
+        测试显示中心温度
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+
+        # 点击调用测温工具栏图标
+        MeasureTempTool.click_call_measure_temp_tool_icon(self.wait)
+
+        # 获取取景器元素截图
+        view_ele: WebElement = view.get_view_element(self.wait)
+        utility.capture_element_screenshot(self.driver, view_ele)
+
+class TestTempRuler:
+    """
+    测试等温尺功能
+    由于每次测试会默认打开铁红色板和等温尺，所以切换到不支持色板，等温尺会消失，切换到支持色板，等温尺保留
+    """
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    def test_temp_ruler_default_show(self):
+        """
+        测试等温尺是否默认被调用
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+
+        # 判断等温尺是否被默认调用
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, "等温尺没有被默认调用"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("bingleng")
+    @pytest.mark.bingleng
+    def test_temp_ruler_exist_bingleng(self):
+        """
+        测试等温尺已经被调用，色板切换为冰冷色板，等温尺是否还存在
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择冰冷色板
+        pallete = "bingleng"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 判断等温尺是否存在
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+            assert False, f"{pallete}色板，等温尺依旧存在"
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException,
+               TimeoutException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("bingleng")
+    @pytest.mark.bingleng
+    def test_bingleng_call_temp_ruler(self):
+        """
+        测试冰冷色板能否调用等温尺，预期不能
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择冰冷色板
+        pallete = "bingleng"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 点击调用等温尺
+        TempRuler.call_temp_ruler(self.wait)
+
+        # 判断等温尺是否调用成功
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+            assert False, f"{pallete}色板调用等温尺成功"
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException,
+               TimeoutException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("hongtou")
+    @pytest.mark.hongtou
+    def test_temp_ruler_exit_hongtou(self):
+        """
+        测试等温尺已经被调用，色板切换为红头色板，等温尺是否还存在
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择红头色板
+        pallete = "hongtou"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 判断等温尺是否存在
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+            assert False, f"{pallete}色板，等温尺依旧存在"
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("hongtou")
+    @pytest.mark.hongtou
+    def test_hongtou_call_temp_ruler(self):
+        """
+        测试红头色板能否调用等温尺，预期不能
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择红头色板
+        pallete = "hongtou"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 点击调用等温尺
+        TempRuler.call_temp_ruler(self.wait)
+
+        # 判断等温尺是否调用成功
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+            assert False, f"{pallete}色板调用等温尺成功"
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException,
+               TimeoutException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("tiehui")
+    @pytest.mark.tiehui
+    def test_temp_ruler_exit_tiehui(self):
+        """
+        测试等温尺已经被调用，色板切换为铁灰色板，等温尺是否还存在，预期存在
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择铁灰色板
+        pallete = "tiehui"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 判断等温尺是否存在
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, f"{pallete}色板，等温尺不存在"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("tiehui")
+    @pytest.mark.tiehui
+    def test_tiehui_cancel_call_temp_ruler(self):
+        """
+        测试铁灰色板能否取消调用等温尺，预期可以
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择铁灰色板
+        pallete = "tiehui"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 点击取消调用等温尺
+        TempRuler.call_temp_ruler(self.wait)
+
+        # 判断等温尺是否取消调用成功
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+            assert False, f"{pallete}色板，取消调用等温尺失败"
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException,
+               TimeoutException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("temp_ruler")
+    @allure.suite("tiehui")
+    @pytest.mark.tiehui
+    def test_tiehui_call_temp_ruler(self):
+        """
+        测试铁灰色板能否调用等温尺，预期可以
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 点击展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 选择铁灰色板
+        pallete = "tiehui"
+        Pallete.choose_palette(self.wait, self.driver, view_ele, pallete)
+
+        # 点击取消调用等温尺
+        TempRuler.call_temp_ruler(self.wait)
+
+        # 点击调用等温尺
+        TempRuler.call_temp_ruler(self.wait)
+
+        # 判断等温尺是否调用成功
+        try:
+            TempRuler.get_temp_ruler_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException,
+               TimeoutException):
+            assert False, f"{pallete}色板，调用等温尺失败"
+
+class TestImageSetting:
+    """
+    测试图像设置功能
+    """
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("image_setting")
+    def test_call_img_setting_row(self):
+        """
+        测试调出图像工具栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框需要授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+
+        # 点击调用图像工具栏图标
+        ImageSetting.click_call_img_set_icon(self.wait)
+
+        # 判断各图像工具是否展示
+        try:
+            ImageSetting.get_brightness_icon(self.wait)
+            ImageSetting.get_contrast_icon(self.wait)
+            ImageSetting.get_xuanzhuan_icon(self.wait)
+            ImageSetting.get_jingxiang_icon(self.wait)
+        except(NoSuchElementException, InvalidElementStateException, StaleElementReferenceException, TimeoutException):
+            assert False, "调用图像工具栏失败"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("image_setting")
+    def test_call_brightness_bar(self):
+        """
+        测试调出亮度栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+
+        # 点击调用图像工具栏图标
+        ImageSetting.click_call_img_set_icon(self.wait)
+
+        # 点击调用亮度栏
+        ImageSetting.click_brightness_icon(self.wait)
+
+        # 判断亮度栏是否调出
+        try:
+            ImageSetting.get_brightness_contrast_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, "亮度栏调出失败"
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("image_setting")
+    def test_call_contrast_bar(self):
+        """
+        测试调出对比度栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view.get_view_element(self.wait)
+
+        # 点击调用图像工具栏图标
+        ImageSetting.click_call_img_set_icon(self.wait)
+
+        # 点击调用对比度栏
+        ImageSetting.click_contrast_icon(self.wait)
+
+        # 判断对比度栏是否调出
+        try:
+            ImageSetting.get_brightness_contrast_bar(self.wait)
+        except(NoSuchElementException, StaleElementReferenceException, InvalidElementStateException, TimeoutException):
+            assert False, "对比度栏调出失败"
+
+class TestPallete:
+    """
+    测试色板功能
+    """
+
+    @allure.epic("inside")
+    @allure.feature("view")
+    @allure.story("pallete")
+    def test_call_palette_row(self):
+        """
+        测试调出色板栏
+        :return:
+        """
+        # 进入插件
+        device.enter_camera(self.wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        view.admit_access(self.wait)
+
+        # 找到取景器元素
+        view_ele = view.get_view_element(self.wait)
+
+        # 展示色板栏
+        Pallete.display_palette_row(self.wait)
+
+        # 向上滑动色板栏
+        Pallete.swipe_pallete_row_up(self.driver, view_ele)
+
+        # 判断色板栏是否展示成功
+        for key,value in Pallete.PALLETE.items():
+            Pallete.choose_palette(self.wait, self.driver, view_ele, key)

@@ -3,7 +3,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
 
-import common_utils
+import utility
 
 
 def find_latest_report(wait, driver) -> WebElement | None:
@@ -25,7 +25,7 @@ def find_latest_report(wait, driver) -> WebElement | None:
             if i == 2:
                 print("第一个报告不存在")
             # 没有找到的话向下滑动刷新
-            common_utils.swipe_y_1_4_to_y_3_4(driver)
+            utility.swipe_y_1_4_to_y_3_4(driver)
             i += 1
     return None
 
@@ -57,7 +57,7 @@ def get_all_reports(wait, driver) -> list[str] | None:
             titles_str_all.extend(titles_str)
 
             # 向上滑
-            common_utils.swipe_y_3_4_to_y_1_4(driver)
+            utility.swipe_y_3_4_to_y_1_4(driver)
             count += 1
         except(TimeoutException, InvalidElementStateException, NoSuchElementException):
             return None

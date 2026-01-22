@@ -1,9 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
-
 from . import album, photo, report
-
 
 def enter_album(wait) -> None:
     """
