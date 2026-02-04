@@ -21,7 +21,7 @@ class TestSetting:
         view.admit_access(self.wait)
 
         # 等取景器加载完毕
-        time.sleep(10)
+        view.get_view_element(self.wait)
 
         # 进入设置页面
         view.enter_setting(self.wait)
@@ -52,7 +52,7 @@ class TestSetting:
         view.admit_access(self.wait)
 
         # 等取景器加载完毕
-        time.sleep(10)
+        view.get_view_element(self.wait)
 
         # 进入设置页面
         view.enter_setting(self.wait)
@@ -83,7 +83,7 @@ class TestSetting:
         view.admit_access(self.wait)
 
         # 等取景器加载完毕
-        time.sleep(10)
+        view.get_view_element(self.wait)
 
         # 进入设置页面
         view.enter_setting(self.wait)

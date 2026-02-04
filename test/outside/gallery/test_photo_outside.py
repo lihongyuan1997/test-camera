@@ -9,7 +9,7 @@ class TestOutsidePhoto:
 
     @allure.epic("outside")
     @allure.feature("photo")
-    def test_outside_photo_generate_report_inside_check(self):
+    def test_photo_outside_generate_report_inside_check(self):
         """
         测试外部照片生成报告后，内部是否存在报告
         :return:
@@ -21,12 +21,10 @@ class TestOutsidePhoto:
         view.admit_access(self.wait)
 
         # 等取景器加载完毕
-        time.sleep(10)
+        view.get_view_element(self.wait)
 
         # 拍摄照片
         view.take_photo(self.wait, 1)
-
-        print("----------------------------------------------------------------生成报告前-------------------------------------------------------------")
 
         # 进入内部相册
         view.enter_albums(self.wait)
@@ -36,15 +34,13 @@ class TestOutsidePhoto:
 
         # 生成报告前---获取内部所有报告标题
         all_report_titles_before: list[str] = albums.report.get_all_reports(self.wait, self.driver)
-        print("生成报告前内部所有报告标题：", all_report_titles_before)
+        print("生成报告前，内部所有报告标题：", all_report_titles_before)
 
         # 回到取景器
         utility.back_last_page(self.wait)
 
         # 回到外壳
         view.back_shell(self.wait)
-
-        print("----------------------------------------------------------------生成报告-------------------------------------------------------------")
 
         # 进入外壳相册
         startup.enter_gallery(self.wait)
@@ -61,8 +57,6 @@ class TestOutsidePhoto:
 
         # 确认生成报告
         gallery.photo.confirm_generate_report(self.wait)
-
-        print("----------------------------------------------------------------生成报告后-------------------------------------------------------------")
 
         # 返回相册页面
         utility.back_last_page(self.wait)
@@ -81,7 +75,7 @@ class TestOutsidePhoto:
 
         # 生成报告后---获取内部所有报告标题
         all_report_titles_after: list[str] = gallery.report.get_all_reports(self.wait, self.driver)
-        print("生成报告后内部所有报告标题：", all_report_titles_after)
+        print("生成报告后，内部所有报告标题：", all_report_titles_after)
 
         # 判断报告是否生成成功
         if all_report_titles_before is None:
@@ -91,7 +85,7 @@ class TestOutsidePhoto:
 
     @allure.epic("outside")
     @allure.feature("photo")
-    def test_outside_photo_generate_report_outside_check(self):
+    def test_photo_outside_generate_report_outside_check(self):
         """
         测试外部照片生成报告后，外部是否存在报告
         :return:
@@ -103,7 +97,7 @@ class TestOutsidePhoto:
         view.admit_access(self.wait)
 
         # 等取景器加载完毕
-        time.sleep(10)
+        view.get_view_element(self.wait)
 
         # 拍摄照片
         view.take_photo(self.wait, 1)
@@ -117,7 +111,7 @@ class TestOutsidePhoto:
 
         # 生成报告前---获取外部所有报告标题
         all_report_titles_before: list[str] = gallery.report.get_all_reports(self.wait, self.driver)
-        print("生成报告前外部所有报告标题：", all_report_titles_before)
+        print("生成报告前，外部所有报告标题：", all_report_titles_before)
 
         # 进入外壳相册页面
         gallery.enter_album(self.wait)
@@ -142,7 +136,7 @@ class TestOutsidePhoto:
 
         # 生成报告后---再次获取外部所有报告标题
         all_report_titles_after: list[str] = gallery.report.get_all_reports(self.wait, self.driver)
-        print("生成报告后外部所有报告标题：", all_report_titles_after)
+        print("生成报告后，外部所有报告标题：", all_report_titles_after)
 
         # 判断报告是否生成成功
         if all_report_titles_before is None:

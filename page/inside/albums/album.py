@@ -3,65 +3,68 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
-import utility
 from .photo import find_file_title
+from device_context import DeviceContext
 
 def find_latest_file(wait, driver) -> WebElement | None:
     """
     获取最近一个文件，如果没有找到，返回空
     :return: None
     """
-    i = 0
-    while i < 3:
+    print("-------------------------查找最近一个照片/视频-------------------------")
+    i = 1
+    while True:
         try:
-            # 找到最近一个文件
+            # 找到最近一个照片/视频
+            print(f"--------第{i}次查找--------")
             file: WebElement = wait.until \
                 (method=EC.presence_of_element_located \
                     (locator=(By.XPATH, '(//android.widget.ImageView[@resource-id="com.inreii.neutralapp:id/image"])[1]')))
-            print("第一个文件元素：", file)
+            print("--------已找到最近一张照片/视频--------")
             return file
         except (InvalidElementStateException, NoSuchElementException, TimeoutException):
-            print(f"第 {i} 次没找到第一个文件")
-            if i == 2:
-                print("第一个文件不存在")
+            if i == 3:
+                print("--------没有照片/视频存在--------")
+                break
             # 没有找到的话向下滑动刷新
-            utility.swipe_y_1_4_to_y_3_4(driver)
+            driver.swipe(DeviceContext.WIDTH * 0.5, DeviceContext.HEIGHT * 0.25, DeviceContext.WIDTH * 0.5, DeviceContext.HEIGHT * 0.75)
             i += 1
     return None
 
 def find_files_titles(wait, driver, n: int) -> list[str] | None:
     """
-    找到相册里前N个文件标题，文件数不足N，返回全部文件
+    找到相册里前n个照片/视频标题，照片/视频数不足n，返回全部照片/视频
     :param driver:
     :param wait:
     :param n:
     :return:
     """
+    print("查找相册里前n个照片/视频")
     files_titles: list[str] = []
-    # 找到第一个文件
+    # 找到第一个照片/视频
     latest_file = find_latest_file(wait, driver)
 
-    # 如果至少存在一个文件
+    # 如果至少存在一个照片/视频
     if latest_file:
-        # 进入第一个文件详情
+        # 进入第一个照片/视频详情
         latest_file.click()
         last_file_title: str = find_file_title(wait)
 
         i = 1
         while n:
-            print(f"第 {i} 个文件标题：", last_file_title)
+            print(f"第 {i} 个照片/视频标题：", last_file_title)
 
             files_titles.append(last_file_title)
 
             # 向左滑
-            utility.swipe_x_3_4_to_x_1_4(driver)
+            driver.swipe(DeviceContext.WIDTH * 0.75, DeviceContext.HEIGHT * 0.5, DeviceContext.WIDTH * 0.25, DeviceContext.HEIGHT * 0.5)
 
             time.sleep(1)
 
-            if last_file_title == find_file_title(wait):  # 如果文件标题没有变化，说明到了最后一个，跳出循环
+            if last_file_title == find_file_title(wait):  # 如果照片/视频标题没有变化，说明到了最后一个，跳出循环
                 break
             else:
-                last_file_title: str = find_file_title(wait)  # 否则，将文件标题赋给last_file_title
+                last_file_title: str = find_file_title(wait)  # 否则，将照片/视频标题赋给last_file_title
             n -= 1
             i += 1
 
