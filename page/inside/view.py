@@ -457,24 +457,25 @@ class ImageSetting:
 
 class Pallete:
 
-    PALLETE: dict[str:str] = {"bingleng": "com.inreii.neutralapp:id/rl_bingleng1", # 冰冷
-                                 "hongtou":"com.inreii.neutralapp:id/ib_hongtou" , # 红头
-                                 "tiehui":"com.inreii.neutralapp:id/ib_tiehui", # 铁灰
-                                 "mohui":"com.inreii.neutralapp:id/rl_mohui1", # 墨灰
-                                 "rongyan":"com.inreii.neutralapp:id/ib_rongyan", # 熔岩
-                                 "gaocaihong":"com.inreii.neutralapp:id/ib_gaocaihong", # 高彩虹
-                                 "caihong":"com.inreii.neutralapp:id/ib_caihong", # 彩虹
-                                 "heire":"com.inreii.neutralapp:id/ib_heire", # 黑热
-                                 "baire":"com.inreii.neutralapp:id/baire_mode_button", # 白热
-                                 "tiehong":"com.inreii.neutralapp:id/ib_tiehong" # 铁红
-                              }
+    PALLETE: dict[str:str] = {
+        "bingleng": "com.inreii.neutralapp:id/rl_bingleng1", # 冰冷
+        "hongtou":"com.inreii.neutralapp:id/ib_hongtou" , # 红头
+        "tiehui":"com.inreii.neutralapp:id/ib_tiehui", # 铁灰
+        "mohui":"com.inreii.neutralapp:id/rl_mohui1", # 墨灰
+        "rongyan":"com.inreii.neutralapp:id/ib_rongyan", # 熔岩
+        "gaocaihong":"com.inreii.neutralapp:id/ib_gaocaihong", # 高彩虹
+        "caihong":"com.inreii.neutralapp:id/ib_caihong", # 彩虹
+        "heire":"com.inreii.neutralapp:id/ib_heire", # 黑热
+        "baire":"com.inreii.neutralapp:id/baire_mode_button", # 白热
+        "tiehong":"com.inreii.neutralapp:id/ib_tiehong" # 铁红
+        }
 
     @staticmethod
     def swipe_pallete_row_up(driver, view_ele: WebElement):
         """
         向上滑动色板栏
+        :param view_ele:
         :param driver:
-        :param view:
         :return:
         """
         # 确定色板栏横坐标（屏幕是横过来的）
@@ -488,7 +489,7 @@ class Pallete:
         """
         向下滑动色板栏
         :param driver:
-        :param view:
+        :param view_ele:
         :return:
         """
         # 确定色板栏横坐标（屏幕是横过来的）
@@ -501,12 +502,13 @@ class Pallete:
     def choose_palette(wait, driver, view: WebElement, palette: str) -> None:
         """
         选择色板
+        :param palette:
+        :param view:
         :param driver:
-        :param palette_name:
         :param wait:
         :return:
         """
-        left_count = 0
+        count = 0
         while True:
             try:
                 # 找到具体色板元素
@@ -520,6 +522,6 @@ class Pallete:
             # 没找到向下滑
             except (NoSuchElementException, TimeoutException, InvalidElementStateException):
                 Pallete.swipe_pallete_row_down(driver,view)
-                left_count += 1
-                if left_count == 3:
+                count += 1
+                if count == 3:
                     assert False, f"--------找不到{palette}色板--------"

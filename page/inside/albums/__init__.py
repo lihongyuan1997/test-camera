@@ -14,7 +14,6 @@ def enter_album(wait) -> None:
             (locator=(By.ID, "com.inreii.neutralapp:id/album")))
     album.click()
 
-
 def enter_favorite(wait) -> None:
     """
     进入收藏页面

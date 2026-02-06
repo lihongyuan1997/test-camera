@@ -1,4 +1,4 @@
-from selenium.common import NoSuchElementException, TimeoutException
+from selenium.common import NoSuchElementException, TimeoutException, InvalidElementStateException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,12 +15,21 @@ def find_file_title(wait) -> str:
             (locator=(By.ID, "com.inreii.neutralapp:id/title_content")))
     return file_title.text
 
+def get_photo_view(wait) -> WebElement:
+    """
+    返回照片主体元素
+    :param wait:
+    :return:
+    """
+    return wait.until(EC.presence_of_element_located((By.ID,"com.inreii.neutralapp:id/edit_surface_view")))
+
 def enter_analysis(wait) -> None:
     """
     进入离线分析
     :param wait:
     :return:
     """
+    print('------------------------------已进入离线分析------------------------------')
     # 获取离线分析图标并点击
     analysis: WebElement = wait.until \
         (method=EC.presence_of_element_located \
@@ -98,7 +107,7 @@ class Analysis:
         return pallete
 
     @staticmethod
-    def show_pallete(wait) -> None:
+    def call_pallete(wait) -> None:
         """
         展示色板栏
         :param wait:
@@ -120,7 +129,7 @@ class Analysis:
         return emissivity
 
     @staticmethod
-    def show_emissivity(wait) -> None:
+    def call_emissivity(wait) -> None:
         """
         展示发射率列表
         :param wait:
@@ -238,3 +247,70 @@ class Analysis:
         """
         clear: WebElement = Analysis.get_clear_icon(wait)
         clear.click()
+
+class AnalysisPallete:
+    PALLETE: dict[str:str] = {
+        "baire": "com.inreii.neutralapp:id/baire_mode_button1",  # 白热
+        "heire": "com.inreii.neutralapp:id/ib_heire1",  # 黑热
+        "hongtou": "com.inreii.neutralapp:id/ib_hongtou1",  # 红头
+        "tiehong": "com.inreii.neutralapp:id/ib_tiehong1",  # 铁红
+        "gaocaihong": "com.inreii.neutralapp:id/ib_gaocaihong1",  # 高彩虹
+        "caihong": "com.inreii.neutralapp:id/ib_caihong1",  # 彩虹
+        "tiehui": "com.inreii.neutralapp:id/ib_tiehui1",  # 铁灰
+        }
+
+    @staticmethod
+    def swipe_pallete_row_right(driver, photo_ele: WebElement):
+        """
+        向右滑动色板栏
+        :param photo_ele:
+        :param driver:
+        :return:
+        """
+        # 确定色板栏纵坐标
+        axis_y = photo_ele.location['y'] + photo_ele.size['height'] - 100
+
+        # 向右滑动
+        driver.swipe(0, axis_y, photo_ele.size['width'], axis_y)
+
+    @staticmethod
+    def swipe_pallete_row_left(driver, photo_ele: WebElement):
+        """
+        向左滑动色板栏
+        :param photo_ele:
+        :param driver:
+        :return:
+        """
+        # 确定色板栏纵坐标
+        axis_y = photo_ele.location['y'] + photo_ele.size['height'] - 100
+
+        # 向右滑动
+        driver.swipe(photo_ele.size['width'] * 0.75, axis_y, photo_ele.size['width'] * 0.25, axis_y)
+
+    @staticmethod
+    def choose_palette(wait, driver, photo: WebElement, palette: str) -> None:
+        """
+        选择色板
+        :param palette:
+        :param photo:
+        :param driver:
+        :param wait:
+        :return:
+        """
+        count = 0
+        while True:
+            try:
+                # 找到具体色板元素
+                palette_ele: WebElement = wait.until \
+                    (method=EC.presence_of_element_located \
+                        (locator=(By.ID, AnalysisPallete.PALLETE[palette])))
+                # 选择色板
+                palette_ele.click()
+                print(f"--------已选择{palette}色板--------")
+                break
+            # 没找到向左滑
+            except (NoSuchElementException, TimeoutException, InvalidElementStateException):
+                AnalysisPallete.swipe_pallete_row_left(driver, photo)
+                count += 1
+                if count == 3:
+                    assert False, f"--------找不到{palette}色板--------"

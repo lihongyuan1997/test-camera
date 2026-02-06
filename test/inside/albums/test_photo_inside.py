@@ -1,13 +1,13 @@
 import pytest
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common import NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException
+from selenium.common import *
 import time
 import allure
 import utility
 from page.inside import albums
 from page.inside.view import View, Pallete
 from page.inside.albums import photo
-from page.inside.albums.photo import Analysis
+from page.inside.albums.photo import Analysis, AnalysisPallete
 from page.outside import startup, device, gallery
 
 class TestPhotoInside:
@@ -30,7 +30,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
-        View.get_view_element(wait)
+        time.sleep(10)
 
         # 拍摄照片
         View.take_photo(wait, 1)
@@ -239,6 +239,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -296,6 +297,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -353,6 +355,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -409,6 +412,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -465,6 +469,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -521,6 +526,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -577,6 +583,7 @@ class TestPhotoInside:
         View.admit_access(wait)
 
         # 等取景器加载完毕
+        time.sleep(10)
         view_ele = View.get_view_element(wait)
 
         # 展示色板栏
@@ -613,3 +620,626 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
 
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.heire
+    @pytest.mark.temp_ruler
+    def test_no_analysis_heire_call_thermal_ruler(self, driver, wait):
+        """
+        测试原色板为黑热色板，不进入离线分析，能否调用等温尺，预期失败
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 展示色板栏
+        View.call_palette_row(wait)
+
+        # 色板栏移动到开头位置
+        Pallete.swipe_pallete_row_up(driver, view_ele)
+
+        # 选择黑热色板
+        pallete = 'heire'
+        Pallete.choose_palette(wait, driver, view_ele, pallete)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+            assert False, f"{pallete}色板可以调用等温尺，用例失败"
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.baire
+    @pytest.mark.temp_ruler
+    def test_no_analysis_baire_call_thermal_ruler(self, driver, wait):
+        """
+        测试原色板为白热色板，不进入离线分析，能否调用等温尺，预期失败
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 展示色板栏
+        View.call_palette_row(wait)
+
+        # 色板栏移动到开头位置
+        Pallete.swipe_pallete_row_up(driver, view_ele)
+
+        # 选择白热色板
+        pallete = 'baire'
+        Pallete.choose_palette(wait, driver, view_ele, pallete)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+            assert False, f"{pallete}色板可以调用等温尺，用例失败"
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.tiehong
+    @pytest.mark.temp_ruler
+    def test_no_analysis_tiehong_call_thermal_ruler(self, driver, wait):
+        """
+        测试原色板为铁红色板，不进入离线分析，能否调用等温尺，预期成功
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 展示色板栏
+        View.call_palette_row(wait)
+
+        # 色板栏移动到开头位置
+        Pallete.swipe_pallete_row_up(driver, view_ele)
+
+        # 选择铁红色板
+        pallete = 'tiehong'
+        Pallete.choose_palette(wait, driver, view_ele, pallete)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            assert False, f"{pallete}色板无法调用等温尺，用例失败"
+
+class TestAnalysis:
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.baire
+    @pytest.mark.temp_ruler
+    def test_analysis_baire_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为白热色板，能否调用等温尺，预期失败
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver,photo_view)
+
+        # 选择白热色板
+        pallete = 'baire'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+            assert False, f"{pallete}色板可以调用等温尺，用例失败"
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.heire
+    @pytest.mark.temp_ruler
+    def test_analysis_heire_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为黑热色板，能否调用等温尺，预期失败
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver, photo_view)
+
+        # 选择黑热色板
+        pallete = 'heire'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+            assert False, f"{pallete}色板可以调用等温尺，用例失败"
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.hongtou
+    @pytest.mark.temp_ruler
+    def test_analysis_hongtou_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为红头色板，能否调用等温尺，预期失败
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver, photo_view)
+
+        # 选择红头色板
+        pallete = 'hongtou'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+            assert False, f"{pallete}色板可以调用等温尺，用例失败"
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            pass
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.tiehong
+    @pytest.mark.temp_ruler
+    def test_analysis_tiehong_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为铁红色板，能否调用等温尺，预期成功
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver, photo_view)
+
+        # 选择铁红色板
+        pallete = 'tiehong'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            assert False, f"{pallete}色板调用等温尺失败，用例失败"
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.gaocaihong
+    @pytest.mark.temp_ruler
+    def test_analysis_gaocaihong_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为高彩虹色板，能否调用等温尺，预期成功
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver, photo_view)
+
+        # 选择高彩虹色板
+        pallete = 'gaocaihong'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            assert False, f"{pallete}色板调用等温尺失败，用例失败"
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.caihong
+    @pytest.mark.temp_ruler
+    def test_analysis_caihong_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为彩虹色板，能否调用等温尺，预期成功
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+        view_ele = View.get_view_element(wait)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver, photo_view)
+
+        # 选择彩虹色板
+        pallete = 'caihong'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            assert False, f"{pallete}色板调用等温尺失败，用例失败"
+
+    @allure.epic("inside")
+    @allure.feature("photo")
+    @pytest.mark.photo
+    @pytest.mark.analysis
+    @pytest.mark.tiehui
+    @pytest.mark.temp_ruler
+    def test_analysis_tiehui_call_thermal_ruler(self, driver, wait):
+        """
+        测试进入离线分析，调整色板为铁灰色板，能否调用等温尺，预期成功
+        :return:
+        """
+        # 进入设备页面
+        startup.enter_device(wait)
+
+        # 进入插件
+        device.enter_camera(wait)
+
+        # 如果弹框提示授权APP访问camera+，点击允许
+        View.admit_access(wait)
+
+        # 等取景器加载完毕
+        time.sleep(10)
+
+        # 拍摄照片
+        View.take_photo(wait, 1)
+
+        # 进入内部相册
+        View.enter_albums(wait)
+
+        # 进入相册页面
+        albums.enter_album(wait)
+
+        # 找到第一张照片
+        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+
+        # 进入第一张照片
+        first_photo.click()
+
+        # 进入离线分析
+        photo.enter_analysis(wait)
+
+        # 获取照片主体元素
+        photo_view = photo.get_photo_view(wait)
+
+        # 展示色板栏
+        Analysis.call_pallete(wait)
+
+        # 向右滑动到头
+        AnalysisPallete.swipe_pallete_row_right(driver, photo_view)
+
+        # 选择铁灰色板
+        pallete = 'tiehui'
+        AnalysisPallete.choose_palette(wait, driver, photo_view, pallete)
+
+        # 调用等温尺
+        photo.call_thermal_ruler(wait)
+
+        # 判断是否显示等温尺
+        try:
+            photo.get_thermal_ruler(wait)
+        except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
+            assert False, f"{pallete}色板调用等温尺失败，用例失败"

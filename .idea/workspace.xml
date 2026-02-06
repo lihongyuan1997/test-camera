@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7c5179c-6bdb-4e95-83ec-c5ca5773c83a" name="更改" comment="2026-01-22">
-      <change afterPath="$PROJECT_DIR$/device_context.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/devices.py" afterDir="false" />
+    <list default="true" id="e7c5179c-6bdb-4e95-83ec-c5ca5773c83a" name="更改" comment="2026-02-04">
+      <change afterPath="$PROJECT_DIR$/page/inside/albums/favorite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/inside/albums/test_album.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devices.py" beforeDir="false" afterPath="$PROJECT_DIR$/devices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/inside/albums/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/albums/album.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/album.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/albums/photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/photo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/inside/albums/report.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/report.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytest.ini" beforeDir="false" afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/album/test_inside_photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/album/test_photo_inside.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/setting/test_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/setting/test_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/setting/test_temp_alarm.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/setting/test_temp_alarm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/setting/test_temp_unit.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/setting/test_temp_unit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/test_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/test_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/outside/gallery/test_outside_photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/outside/gallery/test_photo_outside.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/album/test_photo_inside.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/albums/test_photo_inside.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,15 +44,6 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <hideBySeverity>
-      <option value="11" />
-      <option value="12" />
-      <option value="13" />
-      <option value="14" />
-      <option value="15" />
-      <option value="16" />
-      <option value="200" />
-    </hideBySeverity>
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
@@ -71,18 +57,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python 测试.test_inside_photo.TestInsidePhoto 的 Python 测试.executor": "Run",
-    "Python.temp_test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Administrator/Desktop/test_camera+",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python 测试.test_inside_photo.TestInsidePhoto 的 Python 测试.executor&quot;: &quot;Run&quot;,
+    &quot;Python.temp_test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Desktop/test_camera+&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\test_camera+\test\inside\setting" />
@@ -115,25 +101,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test.inside.album.test_photo_inside.TestInsidePhoto 的 Python 测试" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="test.inside.albums.test_photo_inside 的 Python 测试" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="test_camera+" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/inside/album" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/inside/albums" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test.inside.album.test_photo_inside.TestInsidePhoto&quot;" />
+      <option name="_new_target" value="&quot;test.inside.albums.test_photo_inside&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.temp_test" />
-        <item itemvalue="Python 测试.test.inside.album.test_photo_inside.TestInsidePhoto 的 Python 测试" />
+        <item itemvalue="Python 测试.test.inside.albums.test_photo_inside 的 Python 测试" />
       </list>
     </recent_temporary>
   </component>
@@ -192,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769068385216</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="2026-02-04">
+      <option name="closed" value="true" />
+      <created>1770198318382</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1770198318382</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,6 +206,7 @@
     <MESSAGE value="2025-11-27" />
     <MESSAGE value="2025-12-3" />
     <MESSAGE value="2026-01-22" />
-    <option name="LAST_COMMIT_MESSAGE" value="2026-01-22" />
+    <MESSAGE value="2026-02-04" />
+    <option name="LAST_COMMIT_MESSAGE" value="2026-02-04" />
   </component>
 </project>

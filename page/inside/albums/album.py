@@ -2,7 +2,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidElementStateException
+from selenium.common.exceptions import *
 from .photo import find_file_title
 from device_context import DeviceContext
 
@@ -72,3 +72,77 @@ def find_files_titles(wait, driver, n: int) -> list[str] | None:
 
     return None
 
+def get_files_number(driver,wait) -> int:
+    """
+    获取相册文件数量
+    :param driver:
+    :param wait:
+    :return:
+    """
+    previous_page_source = ''
+    count = 1
+    while True:
+        # 循环找到当前页面展示最后一个文件
+        try:
+            file = wait.until(EC.presence_of_all_elements_located((By.XPATH,f'(//android.widget.ImageView[@resource-id="com.inreii.neutralapp:id/image"])[{count}]')))
+            count += 1
+        # 没找到判断当前页面是否是最后一页，不是的话向上滑；是的话退出循环
+        except:
+            if driver.page_source != previous_page_source:
+                previous_page_source = driver.page_source
+                driver.swipe(DeviceContext.WIDTH * 0.5,DeviceContext.HEIGHT * 0.75,DeviceContext.WIDTH * 0.5,DeviceContext.HEIGHT * 0.25)
+            else:
+                break
+    return count - 1
+
+def edit_photos(wait):
+    """
+    点击右上角编辑按钮
+    :param wait:
+    :return:
+    """
+    edit: WebElement = wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/bianji')))
+    edit.click()
+
+def get_day_check_button(wait) -> WebElement:
+    """
+    获取按天选择照片按钮
+    :param wait:
+    :return:
+    """
+    return wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/dayCheck')))
+
+def check_photos_by_day(wait):
+    """
+    按天选择照片
+    :param wait:
+    :return:
+    """
+    day_check = get_day_check_button(wait)
+    day_check.click()
+
+def collect_photo(wait):
+    """
+    收藏照片/视频
+    :param wait:
+    :return:
+    """
+    collect = wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/bottom_shoucang')))
+    collect.click()
+
+def delete_photo(wait):
+    """
+    删除照片/视频
+    :param wait:
+    :return:
+    """
+    delete = wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/button_delete')))
+    delete.click()
+
+def get_sign_no_photo_video(wait) -> None:
+    """
+    获取没有照片/视频标志
+    :param wait:
+    :return:
+    """
+    sign = wait.until(EC.presence_of_element_located((By.XPATH,'//android.widget.TextView[@text="No pictures or reports"]')))
