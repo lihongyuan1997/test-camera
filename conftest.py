@@ -53,9 +53,7 @@ def go_home(driver, wait):
     yield
     while True:
         try:
-            wait.until \
-            (method=EC.presence_of_element_located \
-                (locator=(By.XPATH, "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.inreii.neutralapp:id/devList']/android.widget.RelativeLayout")))
+            wait.until(EC.presence_of_element_located((By.XPATH, "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.inreii.neutralapp:id/devList']/android.widget.RelativeLayout")))
             break
         except:
             driver.back()
