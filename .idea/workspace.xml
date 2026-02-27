@@ -4,17 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7c5179c-6bdb-4e95-83ec-c5ca5773c83a" name="更改" comment="2026-02-04">
-      <change afterPath="$PROJECT_DIR$/page/inside/albums/favorite.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/inside/albums/test_album.py" afterDir="false" />
+    <list default="true" id="e7c5179c-6bdb-4e95-83ec-c5ca5773c83a" name="更改" comment="2026-02-06">
+      <change afterPath="$PROJECT_DIR$/data/devices.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/get_devices_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devices.py" beforeDir="false" afterPath="$PROJECT_DIR$/devices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/inside/albums/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devices.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/albums/album.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/album.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/albums/photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/albums/photo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/inside/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/page/inside/view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytest.ini" beforeDir="false" afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inside/album/test_photo_inside.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/albums/test_photo_inside.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/albums/test_album.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/albums/test_album.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/albums/test_photo_inside.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/albums/test_photo_inside.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/inside/test_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/inside/test_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/outside/gallery/test_photo_outside.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/outside/gallery/test_photo_outside.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,29 +62,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python 测试.test_inside_photo.TestInsidePhoto 的 Python 测试.executor&quot;: &quot;Run&quot;,
-    &quot;Python.temp_test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Desktop/test_camera+&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python 测试.test_inside_photo.TestInsidePhoto 的 Python 测试.executor": "Run",
+    "Python 测试.test_view.TestView.test_take_photo_check_inside 的 Python 测试.executor": "Run",
+    "Python.adb_run.executor": "Run",
+    "Python.get_devices_info (1).executor": "Run",
+    "Python.temp (1).executor": "Run",
+    "Python.temp.executor": "Run",
+    "Python.temp_test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Administrator/Desktop/test_camera+",
+    "settings.editor.selected.configurable": "editor.preferences.appearance"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件": [
+      "yaml"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\test_camera+\data" />
       <recent name="C:\Users\Administrator\Desktop\test_camera+\test\inside\setting" />
       <recent name="C:\Users\Administrator\Desktop\test_camera+\page\inside\setting" />
       <recent name="C:\Users\Administrator\Desktop\test_camera+\page\outside\gallery" />
       <recent name="C:\Users\Administrator\Desktop\test_camera+\page\inside\album" />
-      <recent name="C:\Users\Administrator\Desktop\test_camera+" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.temp_test">
-    <configuration name="temp_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python 测试.test_view.TestView.test_take_photo_check_inside 的 Python 测试">
+    <configuration name="get_devices_info (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="test_camera+" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -92,7 +107,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/temp_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_devices_info.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -101,25 +116,94 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test.inside.albums.test_photo_inside 的 Python 测试" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="get_devices_info" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="test_camera+" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\Administrator\Desktop\test_camera+\get_devices_info.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="temp (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="test_camera+" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/temp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="temp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="test_camera+" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/temp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_view.TestView.test_take_photo_check_inside 的 Python 测试" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="test_camera+" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/inside/albums" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/inside" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test.inside.albums.test_photo_inside&quot;" />
+      <option name="_new_target" value="&quot;test_view.TestView.test_take_photo_check_inside&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.temp_test" />
-        <item itemvalue="Python 测试.test.inside.albums.test_photo_inside 的 Python 测试" />
+        <item itemvalue="Python 测试.test_view.TestView.test_take_photo_check_inside 的 Python 测试" />
+        <item itemvalue="Python.get_devices_info (1)" />
+        <item itemvalue="Python.temp (1)" />
+        <item itemvalue="Python.get_devices_info" />
+        <item itemvalue="Python.temp" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +270,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770198318382</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="2026-02-06">
+      <option name="closed" value="true" />
+      <created>1770363406964</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1770363406964</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,6 +299,7 @@
     <MESSAGE value="2025-12-3" />
     <MESSAGE value="2026-01-22" />
     <MESSAGE value="2026-02-04" />
-    <option name="LAST_COMMIT_MESSAGE" value="2026-02-04" />
+    <MESSAGE value="2026-02-06" />
+    <option name="LAST_COMMIT_MESSAGE" value="2026-02-06" />
   </component>
 </project>

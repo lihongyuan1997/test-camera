@@ -2,8 +2,9 @@ from appium.webdriver import Remote
 from appium.options.common.base import AppiumOptions
 from selenium.webdriver.support.ui import WebDriverWait
 import pytest
+from utility import *
 from device_context import DeviceContext
-from devices import DEVICES
+
 # 使用request.cls将driver, wait动态注入类属性
 # @pytest.fixture(scope='session', autouse=True)
 # def create_driver(request):
@@ -39,10 +40,30 @@ from devices import DEVICES
 #
 #     driver.quit()
 
+DEVICES = read_yaml('data/devices.yaml')
+
+@pytest.fixture(scope='function',autouse=True)
+def go_home(driver, wait):
+    """
+    回到首页
+    :param wait:
+    :param driver:
+    :return:
+    """
+    yield
+    while True:
+        try:
+            wait.until \
+            (method=EC.presence_of_element_located \
+                (locator=(By.XPATH, "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.inreii.neutralapp:id/devList']/android.widget.RelativeLayout")))
+            break
+        except:
+            driver.back()
+
 @pytest.fixture(scope='session', params=DEVICES)
 def driver(request):
     """
-    创建webdriver
+    创建driver，暨启动APP
     :return:
     """
     device = request.param
@@ -52,21 +73,17 @@ def driver(request):
     # 设置连接camera_plus参数
     camera_plus_capabilities = {
         "platformName": "Android",
-        "udid": device['udid'],
+        "udid": device['udid_wifi'],
         "systemPort": device['system_port'],
         "automationName": "uiautomator2",
         "deviceName": "Android",
         "appPackage": "com.inreii.neutralapp",
         "appActivity": ".frame.SplashActivity",
-        "noReset": False, # 每次测试都自动重启软件
         "autoGrantPermissions": True,  # 自动授予系统权限
     }
 
-    options: AppiumOptions = AppiumOptions()
-    options.load_capabilities(camera_plus_capabilities)
-
     # 获取webdriver
-    driver = Remote(command_executor=appium_server_url, options=options)
+    driver = Remote(appium_server_url, options=AppiumOptions().load_capabilities(camera_plus_capabilities))
 
     yield driver
 

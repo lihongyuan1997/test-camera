@@ -4,15 +4,13 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def find_file_title(wait) -> str:
+def get_title(wait) -> str:
     """
     获取文件标题
     :return:
     """
     # 获取标题
-    file_title: WebElement = wait.until \
-        (method=EC.presence_of_element_located \
-            (locator=(By.ID, "com.inreii.neutralapp:id/title_content")))
+    file_title: WebElement = wait.until(EC.presence_of_element_located((By.ID, "com.inreii.neutralapp:id/title_content")))
     return file_title.text
 
 def get_photo_view(wait) -> WebElement:
@@ -29,11 +27,8 @@ def enter_analysis(wait) -> None:
     :param wait:
     :return:
     """
-    print('------------------------------已进入离线分析------------------------------')
     # 获取离线分析图标并点击
-    analysis: WebElement = wait.until \
-        (method=EC.presence_of_element_located \
-            (locator=(By.ID, "com.inreii.neutralapp:id/offlinetext")))
+    analysis: WebElement = wait.until(EC.presence_of_element_located((By.ID, "com.inreii.neutralapp:id/offlinetext")))
     analysis.click()
 
 def click_generate_report(wait) -> None:

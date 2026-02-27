@@ -10,11 +10,12 @@ from page.inside.albums import photo
 from page.inside.albums.photo import Analysis, AnalysisPallete
 from page.outside import startup, device, gallery
 
+@allure.epic("inside")
+@allure.feature("photo")
+@pytest.mark.inside
+@pytest.mark.photo
 class TestPhotoInside:
 
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.analysis
     def test_enter_analysis(self, driver, wait):
         """
         测试是否能进入离线分析
@@ -42,7 +43,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -86,8 +87,6 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, "找不到清除图标，进入离线分析失败"
 
-    @allure.epic("inside")
-    @allure.feature("photo")
     def test_photo_inside_generate_report_inside_check(self, driver, wait):
         """
         测试内部照片生成报告后，内部是否存在报告
@@ -120,7 +119,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -148,8 +147,6 @@ class TestPhotoInside:
         else:
             assert len(all_report_titles_after) == len(all_report_titles_before) + 1, "生成内部报告失败"
 
-    @allure.epic("inside")
-    @allure.feature("photo")
     def test_photo_inside_generate_report_outside_check(self, driver, wait):
         """
         测试内部照片生成报告后，外部是否存在报告
@@ -185,7 +182,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -218,10 +215,7 @@ class TestPhotoInside:
             assert len(all_report_titles_after) == 1, "生成外部报告失败"
         else:
             assert len(all_report_titles_after) == len(all_report_titles_before) + 1, "生成外部报告失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
+    
     @pytest.mark.bingleng
     @pytest.mark.temp_ruler
     def test_no_analysis_bingleng_call_thermal_ruler(self, driver, wait):
@@ -262,7 +256,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -277,9 +271,6 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
 
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
     @pytest.mark.hongtou
     @pytest.mark.temp_ruler
     def test_no_analysis_hongtou_call_thermal_ruler(self, driver, wait):
@@ -320,7 +311,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -334,10 +325,7 @@ class TestPhotoInside:
             assert False, f"{pallete}色板可以调用等温尺，用例失败"
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
+    
     @pytest.mark.tiehui
     @pytest.mark.temp_ruler
     def test_no_analysis_tiehui_call_thermal_ruler(self, driver, wait):
@@ -378,7 +366,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -391,10 +379,7 @@ class TestPhotoInside:
             photo.get_thermal_ruler(wait)
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
+    
     @pytest.mark.mohui
     @pytest.mark.temp_ruler
     def test_no_analysis_mohui_call_thermal_ruler(self, driver, wait):
@@ -435,7 +420,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -449,9 +434,6 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
 
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
     @pytest.mark.rongyan
     @pytest.mark.temp_ruler
     def test_no_analysis_rongyan_call_thermal_ruler(self, driver, wait):
@@ -492,7 +474,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -505,10 +487,7 @@ class TestPhotoInside:
             photo.get_thermal_ruler(wait)
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
+    
     @pytest.mark.gaocaihong
     @pytest.mark.temp_ruler
     def test_no_analysis_gaocaihong_call_thermal_ruler(self, driver, wait):
@@ -549,7 +528,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -563,9 +542,6 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
 
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
     @pytest.mark.caihong
     @pytest.mark.temp_ruler
     def test_no_analysis_caihong_call_thermal_ruler(self, driver, wait):
@@ -606,7 +582,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -619,10 +595,7 @@ class TestPhotoInside:
             photo.get_thermal_ruler(wait)
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
+    
     @pytest.mark.heire
     @pytest.mark.temp_ruler
     def test_no_analysis_heire_call_thermal_ruler(self, driver, wait):
@@ -663,7 +636,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -677,10 +650,7 @@ class TestPhotoInside:
             assert False, f"{pallete}色板可以调用等温尺，用例失败"
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
+    
     @pytest.mark.baire
     @pytest.mark.temp_ruler
     def test_no_analysis_baire_call_thermal_ruler(self, driver, wait):
@@ -721,7 +691,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -736,9 +706,6 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
 
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
     @pytest.mark.tiehong
     @pytest.mark.temp_ruler
     def test_no_analysis_tiehong_call_thermal_ruler(self, driver, wait):
@@ -779,7 +746,7 @@ class TestPhotoInside:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -793,11 +760,13 @@ class TestPhotoInside:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板无法调用等温尺，用例失败"
 
+@allure.epic("inside")
+@allure.feature("photo")
+@pytest.mark.inside
+@pytest.mark.photo
+@pytest.mark.analysis
 class TestAnalysis:
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
+    
     @pytest.mark.baire
     @pytest.mark.temp_ruler
     def test_analysis_baire_call_thermal_ruler(self, driver, wait):
@@ -828,7 +797,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -859,10 +828,6 @@ class TestAnalysis:
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
 
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
     @pytest.mark.heire
     @pytest.mark.temp_ruler
     def test_analysis_heire_call_thermal_ruler(self, driver, wait):
@@ -893,7 +858,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -923,11 +888,7 @@ class TestAnalysis:
             assert False, f"{pallete}色板可以调用等温尺，用例失败"
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
+    
     @pytest.mark.hongtou
     @pytest.mark.temp_ruler
     def test_analysis_hongtou_call_thermal_ruler(self, driver, wait):
@@ -958,7 +919,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -988,11 +949,7 @@ class TestAnalysis:
             assert False, f"{pallete}色板可以调用等温尺，用例失败"
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             pass
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
+    
     @pytest.mark.tiehong
     @pytest.mark.temp_ruler
     def test_analysis_tiehong_call_thermal_ruler(self, driver, wait):
@@ -1023,7 +980,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -1052,11 +1009,7 @@ class TestAnalysis:
             photo.get_thermal_ruler(wait)
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板调用等温尺失败，用例失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
+    
     @pytest.mark.gaocaihong
     @pytest.mark.temp_ruler
     def test_analysis_gaocaihong_call_thermal_ruler(self, driver, wait):
@@ -1087,7 +1040,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -1116,11 +1069,7 @@ class TestAnalysis:
             photo.get_thermal_ruler(wait)
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板调用等温尺失败，用例失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
+    
     @pytest.mark.caihong
     @pytest.mark.temp_ruler
     def test_analysis_caihong_call_thermal_ruler(self, driver, wait):
@@ -1151,7 +1100,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -1180,11 +1129,7 @@ class TestAnalysis:
             photo.get_thermal_ruler(wait)
         except (NoSuchElementException, InvalidElementStateException, TimeoutException, StaleElementReferenceException):
             assert False, f"{pallete}色板调用等温尺失败，用例失败"
-
-    @allure.epic("inside")
-    @allure.feature("photo")
-    @pytest.mark.photo
-    @pytest.mark.analysis
+    
     @pytest.mark.tiehui
     @pytest.mark.temp_ruler
     def test_analysis_tiehui_call_thermal_ruler(self, driver, wait):
@@ -1214,7 +1159,7 @@ class TestAnalysis:
         albums.enter_album(wait)
 
         # 找到第一张照片
-        first_photo: WebElement = albums.album.find_latest_file(wait, driver)
+        first_photo: WebElement = albums.album.get_latest_file(wait, driver)
 
         # 进入第一张照片
         first_photo.click()

@@ -93,9 +93,7 @@ class View:
         :return:
         """
         try:
-            view: WebElement = wait.until \
-                (method=EC.presence_of_element_located \
-                    (locator=(By.ID, "com.inreii.neutralapp:id/yulan")))
+            view: WebElement = wait.until(EC.presence_of_element_located((By.ID, "com.inreii.neutralapp:id/yulan")))
             return view
         except (NoSuchElementException, TimeoutException, InvalidElementStateException):
             assert False, "找不到取景器元素"
@@ -170,9 +168,7 @@ class View:
         :return:
         """
         # 找到album元素
-        album: WebElement = wait.until \
-            (method=EC.presence_of_element_located \
-                (locator=(By.ID, "com.inreii.neutralapp:id/imgK")))
+        album: WebElement = wait.until(method=EC.presence_of_element_located((By.ID, "com.inreii.neutralapp:id/imgK")))
 
         # 点击进入
         album.click()
@@ -187,9 +183,7 @@ class View:
         :return:
         """
         # 找到录制视频元素
-        record: WebElement = wait.until \
-            (method=EC.presence_of_element_located \
-                (locator=(By.ID, "com.inreii.neutralapp:id/ib_camera")))
+        record: WebElement = wait.until(EC.presence_of_element_located((By.ID, "com.inreii.neutralapp:id/ib_camera")))
 
         # 开始录制
         for _ in range(n):
@@ -206,9 +200,7 @@ class View:
         :return:
         """
         # 找到拍摄照片元素
-        take_photo: WebElement = wait.until \
-            (method=EC.presence_of_element_located \
-                (locator=(By.ID, "com.inreii.neutralapp:id/ib_color")))
+        take_photo: WebElement = wait.until(EC.presence_of_element_located((By.ID, "com.inreii.neutralapp:id/ib_color")))
 
         # 拍摄照片
         for _ in range(n):

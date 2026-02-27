@@ -1,0 +1,5 @@
+- appium_port: 4723
+  name: samsung_a51xzc
+  system_port: 8201
+  udid: R5CNA0276SJ
+  udid_wifi: 172.17.104.234:2222

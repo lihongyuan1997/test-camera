@@ -3,10 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
-from .photo import find_file_title
+from .photo import get_title
 from device_context import DeviceContext
 
-def find_latest_file(wait, driver) -> WebElement | None:
+def get_latest_file(wait, driver) -> WebElement | None:
     """
     获取最近一个文件，如果没有找到，返回空
     :return: None
@@ -17,9 +17,7 @@ def find_latest_file(wait, driver) -> WebElement | None:
         try:
             # 找到最近一个照片/视频
             print(f"--------第{i}次查找--------")
-            file: WebElement = wait.until \
-                (method=EC.presence_of_element_located \
-                    (locator=(By.XPATH, '(//android.widget.ImageView[@resource-id="com.inreii.neutralapp:id/image"])[1]')))
+            file: WebElement = wait.until(EC.presence_of_element_located((By.XPATH, '(//android.widget.ImageView[@resource-id="com.inreii.neutralapp:id/image"])[1]')))
             print("--------已找到最近一张照片/视频--------")
             return file
         except (InvalidElementStateException, NoSuchElementException, TimeoutException):
@@ -31,7 +29,7 @@ def find_latest_file(wait, driver) -> WebElement | None:
             i += 1
     return None
 
-def find_files_titles(wait, driver, n: int) -> list[str] | None:
+def get_all_titles(wait, driver, n: int) -> list[str] | None:
     """
     找到相册里前n个照片/视频标题，照片/视频数不足n，返回全部照片/视频
     :param driver:
@@ -42,13 +40,13 @@ def find_files_titles(wait, driver, n: int) -> list[str] | None:
     print("查找相册里前n个照片/视频")
     files_titles: list[str] = []
     # 找到第一个照片/视频
-    latest_file = find_latest_file(wait, driver)
+    latest_file = get_latest_file(wait, driver)
 
     # 如果至少存在一个照片/视频
     if latest_file:
         # 进入第一个照片/视频详情
         latest_file.click()
-        last_file_title: str = find_file_title(wait)
+        last_file_title: str = get_title(wait)
 
         i = 1
         while n:
@@ -61,10 +59,10 @@ def find_files_titles(wait, driver, n: int) -> list[str] | None:
 
             time.sleep(1)
 
-            if last_file_title == find_file_title(wait):  # 如果照片/视频标题没有变化，说明到了最后一个，跳出循环
+            if last_file_title == get_title(wait):  # 如果照片/视频标题没有变化，说明到了最后一个，跳出循环
                 break
             else:
-                last_file_title: str = find_file_title(wait)  # 否则，将照片/视频标题赋给last_file_title
+                last_file_title: str = get_title(wait)  # 否则，将照片/视频标题赋给last_file_title
             n -= 1
             i += 1
 
@@ -90,12 +88,12 @@ def get_files_number(driver,wait) -> int:
         except:
             if driver.page_source != previous_page_source:
                 previous_page_source = driver.page_source
-                driver.swipe(DeviceContext.WIDTH * 0.5,DeviceContext.HEIGHT * 0.75,DeviceContext.WIDTH * 0.5,DeviceContext.HEIGHT * 0.25)
+                driver.swipe(DeviceContext.WIDTH * 0.5, DeviceContext.HEIGHT * 0.75, DeviceContext.WIDTH * 0.5, DeviceContext.HEIGHT * 0.25)
             else:
                 break
     return count - 1
 
-def edit_photos(wait):
+def edit_files(wait):
     """
     点击右上角编辑按钮
     :param wait:
@@ -112,7 +110,7 @@ def get_day_check_button(wait) -> WebElement:
     """
     return wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/dayCheck')))
 
-def check_photos_by_day(wait):
+def check_files_by_day(wait):
     """
     按天选择照片
     :param wait:
@@ -121,7 +119,7 @@ def check_photos_by_day(wait):
     day_check = get_day_check_button(wait)
     day_check.click()
 
-def collect_photo(wait):
+def collect_file(wait):
     """
     收藏照片/视频
     :param wait:
@@ -130,7 +128,7 @@ def collect_photo(wait):
     collect = wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/bottom_shoucang')))
     collect.click()
 
-def delete_photo(wait):
+def delete_file(wait):
     """
     删除照片/视频
     :param wait:
@@ -138,6 +136,14 @@ def delete_photo(wait):
     """
     delete = wait.until(EC.presence_of_element_located((By.ID,'com.inreii.neutralapp:id/button_delete')))
     delete.click()
+
+def confirm_delete_file(wait):
+    """
+    确认删除照片/视频
+    :param wait:
+    :return:
+    """
+    pass
 
 def get_sign_no_photo_video(wait) -> None:
     """

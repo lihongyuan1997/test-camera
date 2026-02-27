@@ -47,7 +47,7 @@ class TestOutsidePhoto:
         gallery.enter_album(self.wait)
 
         # 找到第一张照片
-        first_photo: WebElement = gallery.album.find_latest_file(self.wait, self.driver)
+        first_photo: WebElement = gallery.album.get_latest_file(self.wait, self.driver)
 
         # 进入第一张照片
         first_photo.click()
@@ -117,7 +117,7 @@ class TestOutsidePhoto:
         gallery.enter_album(self.wait)
 
         # 找到第一张照片
-        first_photo: WebElement = gallery.album.find_latest_file(self.wait, self.driver)
+        first_photo: WebElement = gallery.album.get_latest_file(self.wait, self.driver)
 
         # 进入第一张照片
         first_photo.click()

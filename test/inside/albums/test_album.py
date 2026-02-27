@@ -1,17 +1,18 @@
 import time
-
+import allure
 import pytest
-
 from page.inside import albums
 from page.inside.albums import album
 from page.inside.view import View
 from page.outside import startup, device
-
 from selenium.common import *
 
+@allure.epic('inside')
+@allure.feature('album')
+@pytest.mark.inside
+@pytest.mark.album
 class TestAlbum:
-    @pytest.mark.inside
-    @pytest.mark.album
+
     def test_exist_photo_edit_photos(self, driver, wait):
         """
         测试存在照片时，点击右上角编辑按钮后，预期显示选中图片按钮
@@ -41,7 +42,7 @@ class TestAlbum:
         albums.enter_album(wait)
 
         # 点击右上角编辑按钮
-        album.edit_photos(wait)
+        album.edit_files(wait)
 
         # 判断是否显示多选照片按钮
         try:
@@ -49,8 +50,6 @@ class TestAlbum:
         except (TimeoutException, NoSuchElementException, StaleElementReferenceException, InvalidElementStateException):
             assert False,'右上角编辑照片功能失效'
 
-    @pytest.mark.inside
-    @pytest.mark.album
     def test_no_photo_edit_photos(self, driver, wait):
         """
         测试不存在照片时，点击右上角编辑按钮后，预期没有反应
@@ -77,7 +76,7 @@ class TestAlbum:
         albums.enter_album(wait)
 
         # 点击右上角编辑按钮
-        album.edit_photos(wait)
+        album.edit_files(wait)
 
         # 判断是否显示多选照片按钮
         try:
@@ -86,8 +85,6 @@ class TestAlbum:
         except (TimeoutException, NoSuchElementException, StaleElementReferenceException, InvalidElementStateException):
             pass
 
-    @pytest.mark.inside
-    @pytest.mark.album
     @pytest.mark.parametrize(argnames='number', argvalues=[5])
     def test_delete_photo(self,driver,wait,number):
         """
@@ -116,7 +113,7 @@ class TestAlbum:
         albums.enter_album(wait)
 
         # 点击右上角编辑按钮
-        album.edit_photos(wait)
+        album.edit_files(wait)
 
 
 class TestCollectPhoto:
